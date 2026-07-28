@@ -29,8 +29,10 @@ let loginOptions: InputOption[] = [
 ];
 
 
-export default function Login() {
+import { useRouter } from "next/navigation";
 
+export default function Login() {
+  const router = useRouter();
 
    let { value, handleInputefn } = useHandleinpute({
     name: "",
@@ -40,18 +42,26 @@ export default function Login() {
 
 
   const loginfn = async () => {
-    let response = await  ApiClient.getInstance().request("/signup", {
+    let response = await  ApiClient.getInstance().request("/login", {
       method: "POST",
       data: {
         email: value.email,
-        name: value.name,
         password: value.password
       }
     });
     if (response.success) {
       toast.success(response.message);
+      
+      // Save session info locally
+      if (typeof window !== "undefined" && response.data) {
+        localStorage.setItem("wishey_user", JSON.stringify(response.data));
+      }
 
-      // navigate("/login", { replace: true });
+      if (response.data?.role === "admin") {
+        router.push("/admin");
+      } else {
+        router.push("/");
+      }
     } else {
       toast.error(response.message);
     }

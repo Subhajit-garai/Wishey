@@ -73,6 +73,7 @@ export const FileUpload = ({
           <p className="relative z-20 mt-2 font-sans text-base font-normal text-neutral-400 dark:text-neutral-400">
             Drag or drop your files here or click to upload
           </p>
+
           <div className="relative mx-auto mt-10 w-full max-w-xl">
             {files.length > 0 &&
               files.map((file, idx) => (
@@ -124,6 +125,7 @@ export const FileUpload = ({
                   </div>
                 </motion.div>
               ))}
+
             {!files.length && (
               <motion.div
                 layoutId="file-upload"
@@ -165,5 +167,3 @@ export const FileUpload = ({
     </div>
   );
 };
-
-

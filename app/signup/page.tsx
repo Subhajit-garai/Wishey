@@ -35,8 +35,10 @@ let loginOptions: InputOption[] = [
 ];
 
 
-export default function Signup() {
+import { useRouter } from "next/navigation";
 
+export default function Signup() {
+  const router = useRouter();
 
    let { value, handleInputefn } = useHandleinpute({
     name: "",
@@ -56,8 +58,7 @@ export default function Signup() {
     });
     if (response.success) {
       toast.success(response.message);
-
-      // navigate("/login", { replace: true });
+      router.push("/login");
     } else {
       toast.error(response.message);
     }

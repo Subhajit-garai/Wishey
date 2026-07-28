@@ -1,7 +1,12 @@
+"use client";
+
 import { ThemeToggler } from "@/designs/theme/index";
 import { Button } from "@/components/ui/button";
 import NavLink from "next/link";
 import Image from "next/image";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export const Header = ({
   LogoUrl,
@@ -10,7 +15,32 @@ export const Header = ({
   LogoUrl: string;
   BrandName?: string;
 }) => {
-  let islogin = false;
+  const router = useRouter();
+  const [currentUser, setCurrentUser] = useState<{
+    name: string;
+    email: string;
+    role: string;
+  } | null>(null);
+
+  useEffect(() => {
+    // Check local storage for session info on mount
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("wishey_user");
+      if (stored) {
+        setCurrentUser(JSON.parse(stored));
+      }
+    }
+  }, []);
+
+  const handleLogout = () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("wishey_user");
+    }
+    setCurrentUser(null);
+    toast.success("Successfully logged out.");
+    router.push("/");
+    router.refresh();
+  };
 
   return (
     <nav className=" header  top-0 right-0 left-0   h-20 max-w-full z-8">
@@ -33,16 +63,38 @@ export const Header = ({
           <NavLink href={"/"}>
             <Button className=" ">home</Button>
           </NavLink>
-          <NavLink href={"/wish"}>
+          <NavLink href={"/wish/list"}>
             <Button className=" ">wish</Button>
           </NavLink>
+          {currentUser?.role === "admin" && (
+            <NavLink href={"/admin"}>
+              <Button className="bg-red-500 hover:bg-red-600 text-white border-0 font-semibold">
+                Admin Panel
+              </Button>
+            </NavLink>
+          )}
         </div>
-        <div className="button_section flex h-fit gap-1 md:gap-4 ">
+        <div className="button_section flex h-fit gap-1 md:gap-4 items-center">
           {/* <div className="currency">
             <Suspense fallback={<LoaderFive text="loading ..."/>}></Suspense>
           </div> */}
           <ThemeToggler />
-          {!islogin && (
+          {currentUser ? (
+            <div className="flex gap-3 items-center">
+              <span className="text-xs text-muted-foreground font-semibold hidden md:inline">
+                Welcome,{" "}
+                <strong className="text-foreground">{currentUser.name}</strong>
+              </span>
+              <Button
+                onClick={handleLogout}
+                variant="outline"
+                size="sm"
+                className="cursor-pointer"
+              >
+                Logout
+              </Button>
+            </div>
+          ) : (
             <div className="flex gap-2">
               <NavLink href={"/signup"}>
                 <Button className=" ">Sign up</Button>
