@@ -45,19 +45,25 @@ export const Header = ({
   return (
     <nav className=" header  top-0 right-0 left-0   h-20 max-w-full z-8">
       <div className=" flex  gap-2 md:gap-4 items-center justify-between p-2 md:mx-10 h-full  ">
-        <div className="h-fit  gap-2  flex ">
-          {/* <Logo url={LogoUrl} /> */}
-          <Image className="" src={LogoUrl} alt="Logo" width={40} height={40} />
+        <NavLink href="/" className="h-fit gap-3 flex items-center group cursor-pointer">
+          <Image
+            className="transition-transform duration-300 group-hover:scale-105 drop-shadow-md"
+            src={LogoUrl}
+            alt="Wishey Logo"
+            width={44}
+            height={44}
+            priority
+          />
 
-          <div className="flex-col justify-start gap-1 flex">
-            <p className=" self md:whitespace-nowrap   md:text-xl font-semibold text-(--text-primary)  ">
+          <div className="flex-col justify-start flex">
+            <p className="md:whitespace-nowrap text-lg md:text-xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent tracking-tight">
               {BrandName}
             </p>
-            <p className=" self md:whitespace-nowrap  text-sm  text-accent  ">
+            <p className="md:whitespace-nowrap text-xs text-muted-foreground font-medium">
               wish your close ones..
             </p>
           </div>
-        </div>
+        </NavLink>
 
         <div className="button_section flex h-fit gap-1 md:gap-4 ">
           <NavLink href={"/"}>

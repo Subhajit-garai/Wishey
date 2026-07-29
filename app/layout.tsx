@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "Wishey",
     images: [
       {
-        url: "/icons/cake_of_wishes.png",
+        url: "/logo.svg",
         width: 512,
         height: 512,
         alt: "Wishey Logo",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Wishey - Premium Digital Wishing Cards & Celebrations",
     description: "Design and share stunning, animated digital wishing cards with custom themes, music, and interactive overlays.",
-    images: ["/icons/cake_of_wishes.png"],
+    images: ["/logo.svg"],
   },
 };
 
@@ -55,7 +55,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Header LogoUrl="/icons/cake_of_wishes.png" BrandName="Wishey" />
+        <Header LogoUrl="/logo.svg" BrandName="Wishey" />
         <main> {children}</main>
         <Toaster />
       </body>
