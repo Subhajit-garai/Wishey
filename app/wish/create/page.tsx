@@ -618,18 +618,33 @@ export default function WishCreatePage() {
     const toastId = toast.loading("Creating your digital wish card...");
     
     try {
+      let creatorEmail = null;
+      if (typeof window !== "undefined") {
+        const stored = localStorage.getItem("wishey_user");
+        if (stored) {
+          creatorEmail = JSON.parse(stored).email;
+        }
+      }
+
+      const payload = {
+        ...wishForm,
+        creatorEmail,
+      };
+
       const response = await fetch("/api/wish", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(wishForm),
+        body: JSON.stringify(payload),
       });
       const result = await response.json();
       
       if (result.success) {
-        toast.success("Congratulations! Your digital wish has been created.", { id: toastId });
+        toast.success("Congratulations! Your digital wish card has been created (1 🪙 deducted).", { id: toastId });
         router.push("/wish/list");
+      } else if (result.needToken) {
+        toast.error("Insufficient Tokens! Please click 'Watch Ad' in top bar to earn tokens.", { id: toastId });
       } else {
         toast.error(result.message || "Failed to create wish in database.", { id: toastId });
       }

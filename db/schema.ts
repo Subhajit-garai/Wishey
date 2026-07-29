@@ -45,6 +45,8 @@ export const wishes = pgTableCore("wishes", {
 
   // Visibility
   isPublic: booleanCore("is_public").default(true).notNull(),
+  isActive: booleanCore("is_active").default(true).notNull(),
+  creatorEmail: varcharCore("creator_email", { length: 255 }),
   allowComments: booleanCore("allow_comments").default(true).notNull(),
   allowReactions: booleanCore("allow_reactions").default(true).notNull(),
 
@@ -70,5 +72,6 @@ export const users = pgTableCore("users", {
   email: varcharCore("email", { length: 255 }).notNull().unique(),
   password: varcharCore("password", { length: 255 }).notNull(),
   role: varcharCore("role", { length: 50 }).default("user").notNull(),
+  tokens: integerCore("tokens").default(3).notNull(),
   createdAt: varcharCore("created_at", { length: 100 }).notNull(),
 });

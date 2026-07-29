@@ -8,6 +8,9 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+import { EarnTokenModal } from "@/components/EarnTokenModal";
+import { Coins } from "lucide-react";
+
 export const Header = ({
   LogoUrl,
   BrandName,
@@ -20,14 +23,35 @@ export const Header = ({
     name: string;
     email: string;
     role: string;
+    tokens?: number;
   } | null>(null);
+
+  const fetchTokens = async (email: string) => {
+    try {
+      const res = await fetch(
+        `/api/user/token?email=${encodeURIComponent(email)}`,
+      );
+      const data = await res.json();
+      if (data.success && data.data?.tokens !== undefined) {
+        setCurrentUser((prev) =>
+          prev ? { ...prev, tokens: data.data.tokens } : prev,
+        );
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   useEffect(() => {
     // Check local storage for session info on mount
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("wishey_user");
       if (stored) {
-        setCurrentUser(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        setCurrentUser(parsed);
+        if (parsed.email) {
+          fetchTokens(parsed.email);
+        }
       }
     }
   }, []);
@@ -43,9 +67,12 @@ export const Header = ({
   };
 
   return (
-    <nav className=" header  top-0 right-0 left-0   h-20 max-w-full z-8">
-      <div className=" flex  gap-2 md:gap-4 items-center justify-between p-2 md:mx-10 h-full  ">
-        <NavLink href="/" className="h-fit gap-3 flex items-center group cursor-pointer">
+    <nav className=" header top-0 right-0 left-0 h-20 max-w-full z-8 border-b border-border/40 bg-background/80 backdrop-blur-md">
+      <div className=" flex gap-2 md:gap-4 items-center justify-between p-2 md:mx-10 h-full">
+        <NavLink
+          href="/"
+          className="h-fit gap-3 flex items-center group cursor-pointer"
+        >
           <Image
             className="transition-transform duration-300 group-hover:scale-105 drop-shadow-md"
             src={LogoUrl}
@@ -65,12 +92,12 @@ export const Header = ({
           </div>
         </NavLink>
 
-        <div className="button_section flex h-fit gap-1 md:gap-4 ">
+        <div className="button_section flex h-fit gap-1 md:gap-4 items-center">
           <NavLink href={"/"}>
-            <Button className=" ">home</Button>
+            <Button className="font-semibold">home</Button>
           </NavLink>
           <NavLink href={"/wish/list"}>
-            <Button className=" ">wish</Button>
+            <Button className="font-semibold">my wishes</Button>
           </NavLink>
           {currentUser?.role === "admin" && (
             <NavLink href={"/admin"}>
@@ -80,15 +107,30 @@ export const Header = ({
             </NavLink>
           )}
         </div>
-        <div className="button_section flex h-fit gap-1 md:gap-4 items-center">
-          {/* <div className="currency">
-            <Suspense fallback={<LoaderFive text="loading ..."/>}></Suspense>
-          </div> */}
+
+        <div className="button_section flex h-fit gap-2 md:gap-3 items-center">
+          {/* Earn Token Watch Ad Button & Balance Badge */}
+          {currentUser && (
+            <div className="flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-full text-xs font-bold text-amber-600 dark:text-amber-400">
+              <Coins className="w-4 h-4 text-amber-500" />
+              <span>{currentUser.tokens ?? 3} Tokens</span>
+            </div>
+          )}
+
+          <EarnTokenModal
+            userEmail={currentUser?.email}
+            onTokenEarned={(newCount) => {
+              setCurrentUser((prev) =>
+                prev ? { ...prev, tokens: newCount } : prev,
+              );
+            }}
+          />
+
           <ThemeToggler />
+
           {currentUser ? (
             <div className="flex gap-3 items-center">
               <span className="text-xs text-muted-foreground font-semibold hidden md:inline">
-                Welcome,{" "}
                 <strong className="text-foreground">{currentUser.name}</strong>
               </span>
               <Button
@@ -103,10 +145,10 @@ export const Header = ({
           ) : (
             <div className="flex gap-2">
               <NavLink href={"/signup"}>
-                <Button className=" ">Sign up</Button>
+                <Button variant="outline">Sign up</Button>
               </NavLink>
               <NavLink href={"/login"}>
-                <Button color="blue">Login</Button>
+                <Button>Login</Button>
               </NavLink>
             </div>
           )}

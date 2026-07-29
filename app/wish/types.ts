@@ -101,6 +101,8 @@ export interface Wish {
 
   // Visibility
   isPublic: boolean;
+  isActive?: boolean;
+  creatorEmail?: string;
   allowComments: boolean;
   allowReactions: boolean;
 

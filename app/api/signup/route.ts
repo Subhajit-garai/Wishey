@@ -39,6 +39,7 @@ export async function POST(request: Request) {
       email,
       password, // In production, hash password before saving
       role,
+      tokens: 3,
       createdAt: new Date().toISOString(),
     };
 
@@ -46,12 +47,13 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      message: "Congratulations! You have signed up successfully.",
+      message: "Congratulations! You have signed up successfully. 3 creation tokens added!",
       data: {
         id: newUser.id,
         name: newUser.name,
         email: newUser.email,
         role: newUser.role,
+        tokens: 3,
       },
     });
   } catch (error) {

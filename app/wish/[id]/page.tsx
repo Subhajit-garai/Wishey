@@ -157,6 +157,23 @@ export default function WishSharedPage() {
     );
   }
 
+  if (wish.isActive === false) {
+    return (
+      <div className="w-full min-h-screen bg-background flex flex-col items-center justify-center gap-4 text-center p-6">
+        <div className="w-16 h-16 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center text-2xl font-bold">
+          🔒
+        </div>
+        <h1 className="text-2xl font-bold">Wish Card Inactive</h1>
+        <p className="text-muted-foreground max-w-sm">
+          This digital wish card has been temporarily deactivated by its creator.
+        </p>
+        <Button onClick={() => router.push("/")} className="flex items-center gap-2">
+          <Home className="w-4 h-4" /> Back to Home
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full min-h-screen relative">
       {/* Floating control buttons overlay (visible only on hover / screen edge) */}
