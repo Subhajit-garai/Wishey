@@ -59,6 +59,9 @@ export const metadata: Metadata = {
       "Design and share stunning, animated digital wishing cards with custom themes, music, and interactive overlays.",
     images: ["/logo.svg"],
   },
+  other: {
+    "google-adsense-account": "ca-pub-6642926951146871",
+  },
 };
 
 export default function RootLayout({
@@ -66,7 +69,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+  const adsenseId =
+    process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || "ca-pub-6642926951146871";
 
   return (
     <html
@@ -74,14 +78,13 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        {adsenseId && (
-          <Script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`}
-            crossOrigin="anonymous"
-            strategy="afterInteractive"
-          />
-        )}
+        {/* Google AdSense Crawler Verification Meta Tag & Script */}
+        <meta name="google-adsense-account" content={adsenseId} />
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`}
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="min-h-full flex flex-col">
         <Header LogoUrl="/logo.svg" BrandName="Wishey" />
