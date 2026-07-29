@@ -55,12 +55,25 @@ const TEMPLATES_RECORD: Record<
         occasion: "birthday",
         title: "Happy Birthday, Superstar!",
         subtitle: "Wishing you a year as bright as your smile",
-        description: "Another year older, another year wiser, and another year of being absolutely fabulous! We hope this year brings you infinite success, happiness, and memorable milestones.",
-        quote: "Count your age by friends, not years. Count your life by smiles, not tears.",
+        description:
+          "Another year older, another year wiser, and another year of being absolutely fabulous! We hope this year brings you infinite success, happiness, and memorable milestones.",
+        quote:
+          "Count your age by friends, not years. Count your life by smiles, not tears.",
         theme: "dark-gold",
-        colors: { primary: "#D4AF37", secondary: "#1C1C1C", background: "#121212", text: "#FFFFFF" },
-        animation: { confetti: true, balloons: false, fireworks: true, floatingHearts: false, snow: false }
-      }
+        colors: {
+          primary: "#D4AF37",
+          secondary: "#1C1C1C",
+          background: "#121212",
+          text: "#FFFFFF",
+        },
+        animation: {
+          confetti: true,
+          balloons: false,
+          fireworks: true,
+          floatingHearts: false,
+          snow: false,
+        },
+      },
     },
     {
       name: "Pastel Confetti Party",
@@ -72,12 +85,24 @@ const TEMPLATES_RECORD: Record<
         occasion: "birthday",
         title: "Cheers to Another Sweet Year!",
         subtitle: "Hope your day is colorful, fun, and magical",
-        description: "Wishing you the happiest of birthdays filled with love, laughter, and a double serving of cake! May all your secret wishes come true today.",
+        description:
+          "Wishing you the happiest of birthdays filled with love, laughter, and a double serving of cake! May all your secret wishes come true today.",
         poem: "A year of dreams, a year of cheer, we wish you joy, both far and near. May paths you choose and steps you take, bring joy with every choice you make.",
         theme: "pastel-pink",
-        colors: { primary: "#FFC0CB", secondary: "#E6E6FA", background: "#FFF0F5", text: "#4A2E80" },
-        animation: { confetti: true, balloons: true, fireworks: false, floatingHearts: false, snow: false }
-      }
+        colors: {
+          primary: "#FFC0CB",
+          secondary: "#E6E6FA",
+          background: "#FFF0F5",
+          text: "#4A2E80",
+        },
+        animation: {
+          confetti: true,
+          balloons: true,
+          fireworks: false,
+          floatingHearts: false,
+          snow: false,
+        },
+      },
     },
     {
       name: "Retro Arcade",
@@ -89,11 +114,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "birthday",
         title: "Level Up! Happy Birthday!",
         subtitle: "You have unlocked Level [Age]!",
-        description: "Time to celebrate another grand lap around the sun. Wishing you high scores, legendary loot, and endless fun in the game of life!",
+        description:
+          "Time to celebrate another grand lap around the sun. Wishing you high scores, legendary loot, and endless fun in the game of life!",
         theme: "retro-purple",
-        colors: { primary: "#FF007F", secondary: "#00F0FF", background: "#120024", text: "#39FF14" },
-        animation: { confetti: false, balloons: false, fireworks: true, floatingHearts: false, snow: false }
-      }
+        colors: {
+          primary: "#FF007F",
+          secondary: "#00F0FF",
+          background: "#120024",
+          text: "#39FF14",
+        },
+        animation: {
+          confetti: false,
+          balloons: false,
+          fireworks: true,
+          floatingHearts: false,
+          snow: false,
+        },
+      },
     },
     {
       name: "Minimal Slate",
@@ -105,11 +142,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "birthday",
         title: "Warmest Birthday Wishes",
         subtitle: "Reflecting on a year of wonderful achievements",
-        description: "Wishing you a quiet, wonderful day of celebration. Thank you for your leadership and dedication. May the upcoming year bring you professional excellence and peace.",
+        description:
+          "Wishing you a quiet, wonderful day of celebration. Thank you for your leadership and dedication. May the upcoming year bring you professional excellence and peace.",
         theme: "minimal-slate",
-        colors: { primary: "#475569", secondary: "#64748B", background: "#F8FAFC", text: "#0F172A" },
-        animation: { confetti: false, balloons: false, fireworks: false, floatingHearts: false, snow: false }
-      }
+        colors: {
+          primary: "#475569",
+          secondary: "#64748B",
+          background: "#F8FAFC",
+          text: "#0F172A",
+        },
+        animation: {
+          confetti: false,
+          balloons: false,
+          fireworks: false,
+          floatingHearts: false,
+          snow: false,
+        },
+      },
     },
     {
       name: "Cosmic Stardust",
@@ -121,12 +170,24 @@ const TEMPLATES_RECORD: Record<
         occasion: "birthday",
         title: "To the Moon and Back!",
         subtitle: "Wishing you a stellar birthday celebration",
-        description: "May your birthday be completely out of this world! Sending you galactic love and starlight on this very special day.",
+        description:
+          "May your birthday be completely out of this world! Sending you galactic love and starlight on this very special day.",
         theme: "cosmic-blue",
-        colors: { primary: "#0052D4", secondary: "#6FB1FC", background: "#050B1A", text: "#FFFFFF" },
-        animation: { confetti: true, balloons: false, fireworks: false, floatingHearts: true, snow: false }
-      }
-    }
+        colors: {
+          primary: "#0052D4",
+          secondary: "#6FB1FC",
+          background: "#050B1A",
+          text: "#FFFFFF",
+        },
+        animation: {
+          confetti: true,
+          balloons: false,
+          fireworks: false,
+          floatingHearts: true,
+          snow: false,
+        },
+      },
+    },
   ],
   anniversary: [
     {
@@ -139,12 +200,24 @@ const TEMPLATES_RECORD: Record<
         occasion: "anniversary",
         title: "A Love That Inspires Us All",
         subtitle: "Happy Wedding Anniversary!",
-        description: "Wishing you a beautiful day celebrating your love, commitment, and incredible journey together. May your bond grow stronger with each passing season.",
+        description:
+          "Wishing you a beautiful day celebrating your love, commitment, and incredible journey together. May your bond grow stronger with each passing season.",
         quote: "Real love stories never have endings.",
         theme: "silver-white",
-        colors: { primary: "#A1A1AA", secondary: "#F4F4F5", background: "#FAFAFA", text: "#18181B" },
-        animation: { confetti: true, balloons: false, fireworks: false, floatingHearts: true, snow: false }
-      }
+        colors: {
+          primary: "#A1A1AA",
+          secondary: "#F4F4F5",
+          background: "#FAFAFA",
+          text: "#18181B",
+        },
+        animation: {
+          confetti: true,
+          balloons: false,
+          fireworks: false,
+          floatingHearts: true,
+          snow: false,
+        },
+      },
     },
     {
       name: "Ruby Romance",
@@ -156,11 +229,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "anniversary",
         title: "Through All the Years, Still You",
         subtitle: "Cheers to a lifetime of togetherness",
-        description: "From the moment you met until today, you have built something truly beautiful. Happy Anniversary to the perfect couple!",
+        description:
+          "From the moment you met until today, you have built something truly beautiful. Happy Anniversary to the perfect couple!",
         theme: "ruby-red",
-        colors: { primary: "#DC2626", secondary: "#EF4444", background: "#FFF5F5", text: "#7F1D1D" },
-        animation: { confetti: false, balloons: false, fireworks: false, floatingHearts: true, snow: false }
-      }
+        colors: {
+          primary: "#DC2626",
+          secondary: "#EF4444",
+          background: "#FFF5F5",
+          text: "#7F1D1D",
+        },
+        animation: {
+          confetti: false,
+          balloons: false,
+          fireworks: false,
+          floatingHearts: true,
+          snow: false,
+        },
+      },
     },
     {
       name: "Golden Jubilee",
@@ -172,11 +257,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "anniversary",
         title: "Celebrating a Golden Milestone",
         subtitle: "Happy Golden Anniversary!",
-        description: "Fifty years of building memories, sharing laughter, and walking hand-in-hand. Your relationship is a shining beacon of commitment.",
+        description:
+          "Fifty years of building memories, sharing laughter, and walking hand-in-hand. Your relationship is a shining beacon of commitment.",
         theme: "gold-champagne",
-        colors: { primary: "#D4AF37", secondary: "#F59E0B", background: "#FCFDF9", text: "#78350F" },
-        animation: { confetti: true, balloons: false, fireworks: true, floatingHearts: false, snow: false }
-      }
+        colors: {
+          primary: "#D4AF37",
+          secondary: "#F59E0B",
+          background: "#FCFDF9",
+          text: "#78350F",
+        },
+        animation: {
+          confetti: true,
+          balloons: false,
+          fireworks: true,
+          floatingHearts: false,
+          snow: false,
+        },
+      },
     },
     {
       name: "Modern Pearl",
@@ -188,11 +285,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "anniversary",
         title: "Happy Anniversary to My Favorite Couple!",
         subtitle: "Here's to the ultimate team",
-        description: "To the couple who shows us what true partnership means. May your day be filled with warm cuddles, delicious food, and deep conversations.",
+        description:
+          "To the couple who shows us what true partnership means. May your day be filled with warm cuddles, delicious food, and deep conversations.",
         theme: "rose-gold",
-        colors: { primary: "#B76E79", secondary: "#C38B94", background: "#FFF5F6", text: "#5C3A40" },
-        animation: { confetti: true, balloons: true, fireworks: false, floatingHearts: false, snow: false }
-      }
+        colors: {
+          primary: "#B76E79",
+          secondary: "#C38B94",
+          background: "#FFF5F6",
+          text: "#5C3A40",
+        },
+        animation: {
+          confetti: true,
+          balloons: true,
+          fireworks: false,
+          floatingHearts: false,
+          snow: false,
+        },
+      },
     },
     {
       name: "Celestial Lovers",
@@ -204,12 +313,24 @@ const TEMPLATES_RECORD: Record<
         occasion: "anniversary",
         title: "Written in the Stars",
         subtitle: "Celebrating your cosmic connection",
-        description: "Your love story is written in the constellations. Wishing you a celestial anniversary full of magic, romance, and moonlit walks.",
+        description:
+          "Your love story is written in the constellations. Wishing you a celestial anniversary full of magic, romance, and moonlit walks.",
         theme: "twilight-blue",
-        colors: { primary: "#1E3A8A", secondary: "#818CF8", background: "#070F2B", text: "#FFFFFF" },
-        animation: { confetti: false, balloons: false, fireworks: true, floatingHearts: true, snow: false }
-      }
-    }
+        colors: {
+          primary: "#1E3A8A",
+          secondary: "#818CF8",
+          background: "#070F2B",
+          text: "#FFFFFF",
+        },
+        animation: {
+          confetti: false,
+          balloons: false,
+          fireworks: true,
+          floatingHearts: true,
+          snow: false,
+        },
+      },
+    },
   ],
   wedding: [
     {
@@ -222,11 +343,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "wedding",
         title: "Congratulations on Your Wedding Day!",
         subtitle: "Two Hearts Become One Today",
-        description: "Wishing you a lifetime of love, joy, and wonderful companionship as you begin this gorgeous new chapter together. Let the celebrations begin!",
+        description:
+          "Wishing you a lifetime of love, joy, and wonderful companionship as you begin this gorgeous new chapter together. Let the celebrations begin!",
         theme: "wedding-ivory",
-        colors: { primary: "#D4AF37", secondary: "#FDFBF7", background: "#FAF8F5", text: "#332C22" },
-        animation: { confetti: true, balloons: false, fireworks: false, floatingHearts: true, snow: false }
-      }
+        colors: {
+          primary: "#D4AF37",
+          secondary: "#FDFBF7",
+          background: "#FAF8F5",
+          text: "#332C22",
+        },
+        animation: {
+          confetti: true,
+          balloons: false,
+          fireworks: false,
+          floatingHearts: true,
+          snow: false,
+        },
+      },
     },
     {
       name: "Sage & Rose Boho",
@@ -238,11 +371,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "wedding",
         title: "A Lifetime of Love Starts Today",
         subtitle: "Warmest wishes to the newlyweds",
-        description: "May your home be filled with sunshine, your hearts be filled with music, and your life together be a sweet adventure.",
+        description:
+          "May your home be filled with sunshine, your hearts be filled with music, and your life together be a sweet adventure.",
         theme: "boho-sage",
-        colors: { primary: "#8FBC8F", secondary: "#BC8F8F", background: "#FAF7F2", text: "#2E3B2E" },
-        animation: { confetti: true, balloons: false, fireworks: false, floatingHearts: false, snow: false }
-      }
+        colors: {
+          primary: "#8FBC8F",
+          secondary: "#BC8F8F",
+          background: "#FAF7F2",
+          text: "#2E3B2E",
+        },
+        animation: {
+          confetti: true,
+          balloons: false,
+          fireworks: false,
+          floatingHearts: false,
+          snow: false,
+        },
+      },
     },
     {
       name: "Sapphire Gold",
@@ -254,11 +399,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "wedding",
         title: "The Beginning of Forever",
         subtitle: "May your love grow stronger each day",
-        description: "As you step into the world as husband and wife, may your bond be unbreakable, your laughter be loud, and your love be unconditional.",
+        description:
+          "As you step into the world as husband and wife, may your bond be unbreakable, your laughter be loud, and your love be unconditional.",
         theme: "royal-blue",
-        colors: { primary: "#1E3A8A", secondary: "#F59E0B", background: "#0B132B", text: "#FFFFFF" },
-        animation: { confetti: false, balloons: false, fireworks: true, floatingHearts: false, snow: false }
-      }
+        colors: {
+          primary: "#1E3A8A",
+          secondary: "#F59E0B",
+          background: "#0B132B",
+          text: "#FFFFFF",
+        },
+        animation: {
+          confetti: false,
+          balloons: false,
+          fireworks: true,
+          floatingHearts: false,
+          snow: false,
+        },
+      },
     },
     {
       name: "Vintage Blush",
@@ -270,11 +427,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "wedding",
         title: "Toast to the Beautiful Couple!",
         subtitle: "Cheers to love, laughter, and happily ever after",
-        description: "Wishing you a wonderful celebration today and a bright future together. May every day you share be as magical as your wedding day.",
+        description:
+          "Wishing you a wonderful celebration today and a bright future together. May every day you share be as magical as your wedding day.",
         theme: "blush-pink",
-        colors: { primary: "#E8C5C8", secondary: "#D4A5A9", background: "#FFF5F6", text: "#4E3639" },
-        animation: { confetti: true, balloons: true, fireworks: false, floatingHearts: false, snow: false }
-      }
+        colors: {
+          primary: "#E8C5C8",
+          secondary: "#D4A5A9",
+          background: "#FFF5F6",
+          text: "#4E3639",
+        },
+        animation: {
+          confetti: true,
+          balloons: true,
+          fireworks: false,
+          floatingHearts: false,
+          snow: false,
+        },
+      },
     },
     {
       name: "Minimalist Gold",
@@ -286,12 +455,24 @@ const TEMPLATES_RECORD: Record<
         occasion: "wedding",
         title: "Happy Married Life!",
         subtitle: "Best wishes on your journey together",
-        description: "Simple wishes for a gorgeous couple: may your trust never fail, your passion never fade, and your love continue to grow forever.",
+        description:
+          "Simple wishes for a gorgeous couple: may your trust never fail, your passion never fade, and your love continue to grow forever.",
         theme: "gold-minimalist",
-        colors: { primary: "#CFB997", secondary: "#E2D4C0", background: "#FAFAFA", text: "#1A1A1A" },
-        animation: { confetti: true, balloons: false, fireworks: false, floatingHearts: false, snow: false }
-      }
-    }
+        colors: {
+          primary: "#CFB997",
+          secondary: "#E2D4C0",
+          background: "#FAFAFA",
+          text: "#1A1A1A",
+        },
+        animation: {
+          confetti: true,
+          balloons: false,
+          fireworks: false,
+          floatingHearts: false,
+          snow: false,
+        },
+      },
+    },
   ],
   valentine: [
     {
@@ -304,12 +485,24 @@ const TEMPLATES_RECORD: Record<
         occasion: "valentine",
         title: "You Have My Whole Heart",
         subtitle: "Happy Valentine's Day, My Love",
-        description: "Every day with you feels like a dream. Thank you for filling my life with sweet romance, constant joy, and endless love.",
+        description:
+          "Every day with you feels like a dream. Thank you for filling my life with sweet romance, constant joy, and endless love.",
         quote: "In all the world, there is no heart for me like yours.",
         theme: "crimson-red",
-        colors: { primary: "#E11D48", secondary: "#F43F5E", background: "#FFF1F2", text: "#881337" },
-        animation: { confetti: false, balloons: false, fireworks: false, floatingHearts: true, snow: false }
-      }
+        colors: {
+          primary: "#E11D48",
+          secondary: "#F43F5E",
+          background: "#FFF1F2",
+          text: "#881337",
+        },
+        animation: {
+          confetti: false,
+          balloons: false,
+          fireworks: false,
+          floatingHearts: true,
+          snow: false,
+        },
+      },
     },
     {
       name: "Velvet Romance",
@@ -321,11 +514,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "valentine",
         title: "To My One and Only",
         subtitle: "You are my favorite place to be",
-        description: "No distance, no obstacle, and no time can ever diminish the love I hold for you in my heart. Happy Valentine's Day!",
+        description:
+          "No distance, no obstacle, and no time can ever diminish the love I hold for you in my heart. Happy Valentine's Day!",
         theme: "burgundy-gold",
-        colors: { primary: "#880808", secondary: "#D4AF37", background: "#0F0202", text: "#FFFFFF" },
-        animation: { confetti: true, balloons: false, fireworks: false, floatingHearts: true, snow: false }
-      }
+        colors: {
+          primary: "#880808",
+          secondary: "#D4AF37",
+          background: "#0F0202",
+          text: "#FFFFFF",
+        },
+        animation: {
+          confetti: true,
+          balloons: false,
+          fireworks: false,
+          floatingHearts: true,
+          snow: false,
+        },
+      },
     },
     {
       name: "Sweet Peach Love",
@@ -337,11 +542,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "valentine",
         title: "You Make My Heart Skip a Beat",
         subtitle: "Happy Valentine's Day, Sweetheart",
-        description: "I'm so incredibly lucky to walk through life with you by my side. Let's make today full of delicious treats and cute memories!",
+        description:
+          "I'm so incredibly lucky to walk through life with you by my side. Let's make today full of delicious treats and cute memories!",
         theme: "coral-peach",
-        colors: { primary: "#F97316", secondary: "#FDBA74", background: "#FFF7ED", text: "#7C2D12" },
-        animation: { confetti: false, balloons: true, fireworks: false, floatingHearts: true, snow: false }
-      }
+        colors: {
+          primary: "#F97316",
+          secondary: "#FDBA74",
+          background: "#FFF7ED",
+          text: "#7C2D12",
+        },
+        animation: {
+          confetti: false,
+          balloons: true,
+          fireworks: false,
+          floatingHearts: true,
+          snow: false,
+        },
+      },
     },
     {
       name: "Cyber Neon Heart",
@@ -353,11 +570,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "valentine",
         title: "Connected to You Always",
         subtitle: "My Digital Valentine",
-        description: "Across any distance or server, my signals always lead back to you. You are the ping that lights up my network!",
+        description:
+          "Across any distance or server, my signals always lead back to you. You are the ping that lights up my network!",
         theme: "neon-cyber",
-        colors: { primary: "#FF007F", secondary: "#00FFFF", background: "#0D0115", text: "#FFFFFF" },
-        animation: { confetti: false, balloons: false, fireworks: true, floatingHearts: true, snow: false }
-      }
+        colors: {
+          primary: "#FF007F",
+          secondary: "#00FFFF",
+          background: "#0D0115",
+          text: "#FFFFFF",
+        },
+        animation: {
+          confetti: false,
+          balloons: false,
+          fireworks: true,
+          floatingHearts: true,
+          snow: false,
+        },
+      },
     },
     {
       name: "Classic Letter",
@@ -369,12 +598,24 @@ const TEMPLATES_RECORD: Record<
         occasion: "valentine",
         title: "A Handwritten Note of Love",
         subtitle: "With all my fondness and adoration",
-        description: "This is a simple letter to remind you of how much I cherish our time together. You are my greatest inspiration and comfort.",
+        description:
+          "This is a simple letter to remind you of how much I cherish our time together. You are my greatest inspiration and comfort.",
         theme: "parchment-gold",
-        colors: { primary: "#8B4513", secondary: "#D2B48C", background: "#FCF9F2", text: "#2B1B10" },
-        animation: { confetti: false, balloons: false, fireworks: false, floatingHearts: true, snow: false }
-      }
-    }
+        colors: {
+          primary: "#8B4513",
+          secondary: "#D2B48C",
+          background: "#FCF9F2",
+          text: "#2B1B10",
+        },
+        animation: {
+          confetti: false,
+          balloons: false,
+          fireworks: false,
+          floatingHearts: true,
+          snow: false,
+        },
+      },
+    },
   ],
   other: [
     {
@@ -387,11 +628,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "graduation",
         title: "Congratulations, Graduate!",
         subtitle: "The world is waiting for you",
-        description: "Your diligence, late nights, and absolute focus have led to this amazing accomplishment. Wishing you unlimited heights in your professional career!",
+        description:
+          "Your diligence, late nights, and absolute focus have led to this amazing accomplishment. Wishing you unlimited heights in your professional career!",
         theme: "emerald-gold",
-        colors: { primary: "#059669", secondary: "#F59E0B", background: "#F0FDF4", text: "#064E3B" },
-        animation: { confetti: true, balloons: false, fireworks: true, floatingHearts: false, snow: false }
-      }
+        colors: {
+          primary: "#059669",
+          secondary: "#F59E0B",
+          background: "#F0FDF4",
+          text: "#064E3B",
+        },
+        animation: {
+          confetti: true,
+          balloons: false,
+          fireworks: true,
+          floatingHearts: false,
+          snow: false,
+        },
+      },
     },
     {
       name: "Midnight Glow",
@@ -403,11 +656,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "new-year",
         title: "Happy New Year!",
         subtitle: "Cheers to 365 new opportunities",
-        description: "Wishing you a sparkling, happy, and prosperous New year! May this year bring you closer to all your dreams and ambitions.",
+        description:
+          "Wishing you a sparkling, happy, and prosperous New year! May this year bring you closer to all your dreams and ambitions.",
         theme: "midnight-gold",
-        colors: { primary: "#FFD700", secondary: "#C0C0C0", background: "#0A0A0A", text: "#FFFFFF" },
-        animation: { confetti: true, balloons: false, fireworks: true, floatingHearts: false, snow: false }
-      }
+        colors: {
+          primary: "#FFD700",
+          secondary: "#C0C0C0",
+          background: "#0A0A0A",
+          text: "#FFFFFF",
+        },
+        animation: {
+          confetti: true,
+          balloons: false,
+          fireworks: true,
+          floatingHearts: false,
+          snow: false,
+        },
+      },
     },
     {
       name: "Winter Wonderland",
@@ -419,11 +684,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "christmas",
         title: "Merry and Bright!",
         subtitle: "Wishing you a magical Christmas",
-        description: "May your home be filled with warmth, your holiday tables filled with joy, and your winter filled with peace and cozy nights.",
+        description:
+          "May your home be filled with warmth, your holiday tables filled with joy, and your winter filled with peace and cozy nights.",
         theme: "pine-red",
-        colors: { primary: "#16A34A", secondary: "#DC2626", background: "#F0FDF4", text: "#14532D" },
-        animation: { confetti: false, balloons: false, fireworks: false, floatingHearts: false, snow: true }
-      }
+        colors: {
+          primary: "#16A34A",
+          secondary: "#DC2626",
+          background: "#F0FDF4",
+          text: "#14532D",
+        },
+        animation: {
+          confetti: false,
+          balloons: false,
+          fireworks: false,
+          floatingHearts: false,
+          snow: true,
+        },
+      },
     },
     {
       name: "Executive Climb",
@@ -435,11 +712,23 @@ const TEMPLATES_RECORD: Record<
         occasion: "promotion",
         title: "Congratulations on the Promotion!",
         subtitle: "Well deserved and earned!",
-        description: "Your dedication, leadership, and drive have led to this career leap. The team is proud of you and excited to see you conquer this new role!",
+        description:
+          "Your dedication, leadership, and drive have led to this career leap. The team is proud of you and excited to see you conquer this new role!",
         theme: "professional-blue",
-        colors: { primary: "#2563EB", secondary: "#3B82F6", background: "#F8FAFC", text: "#1E293B" },
-        animation: { confetti: true, balloons: false, fireworks: false, floatingHearts: false, snow: false }
-      }
+        colors: {
+          primary: "#2563EB",
+          secondary: "#3B82F6",
+          background: "#F8FAFC",
+          text: "#1E293B",
+        },
+        animation: {
+          confetti: true,
+          balloons: false,
+          fireworks: false,
+          floatingHearts: false,
+          snow: false,
+        },
+      },
     },
     {
       name: "Bonds of Gold",
@@ -451,13 +740,25 @@ const TEMPLATES_RECORD: Record<
         occasion: "friendship",
         title: "To a Lifelong Friend",
         subtitle: "Thank you for always being my rock",
-        description: "Through laughs, tears, and late-night calls, you have been the best friend anyone could ask for. Here's a little digital token to appreciate our bond!",
+        description:
+          "Through laughs, tears, and late-night calls, you have been the best friend anyone could ask for. Here's a little digital token to appreciate our bond!",
         theme: "sunburst-yellow",
-        colors: { primary: "#EAB308", secondary: "#FACC15", background: "#FEFCE8", text: "#713F12" },
-        animation: { confetti: false, balloons: true, fireworks: false, floatingHearts: true, snow: false }
-      }
-    }
-  ]
+        colors: {
+          primary: "#EAB308",
+          secondary: "#FACC15",
+          background: "#FEFCE8",
+          text: "#713F12",
+        },
+        animation: {
+          confetti: false,
+          balloons: true,
+          fireworks: false,
+          floatingHearts: true,
+          snow: false,
+        },
+      },
+    },
+  ],
 };
 
 export default function WishCreatePage() {
@@ -469,7 +770,9 @@ export default function WishCreatePage() {
   >("birthday");
 
   // Selected template index state
-  const [selectedTemplateIndex, setSelectedTemplateIndex] = useState<number | null>(null);
+  const [selectedTemplateIndex, setSelectedTemplateIndex] = useState<
+    number | null
+  >(null);
 
   // Form step state
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -495,9 +798,20 @@ export default function WishCreatePage() {
     voiceMessage: "",
     music: "",
     theme: "default",
-    colors: { primary: "#673ab7", secondary: "#e91e63", background: "#ffffff", text: "#000000" },
+    colors: {
+      primary: "#673ab7",
+      secondary: "#e91e63",
+      background: "#ffffff",
+      text: "#000000",
+    },
     font: "var(--font-geist-sans)",
-    animation: { confetti: false, balloons: false, fireworks: false, floatingHearts: false, snow: false },
+    animation: {
+      confetti: false,
+      balloons: false,
+      fireworks: false,
+      floatingHearts: false,
+      snow: false,
+    },
     countdown: { enabled: false, targetDate: "" },
     isPublic: true,
     allowComments: true,
@@ -545,13 +859,18 @@ export default function WishCreatePage() {
       },
       sender: {
         ...template.wishData.sender,
-        name: wishForm.sender.anonymous ? "Anonymous" : (wishForm.sender.name || "[Sender Name]"),
+        name: wishForm.sender.anonymous
+          ? "Anonymous"
+          : wishForm.sender.name || "[Sender Name]",
         anonymous: wishForm.sender.anonymous,
       },
       // Fallback message rendering if empty
-      messages: wishForm.messages.filter(m => m).length > 0
-        ? wishForm.messages
-        : (template.wishData.messages || ["Sample message: Hope you have a wonderful celebration!"]),
+      messages:
+        wishForm.messages.filter((m) => m).length > 0
+          ? wishForm.messages
+          : template.wishData.messages || [
+              "Sample message: Hope you have a wonderful celebration!",
+            ],
     };
   };
 
@@ -616,7 +935,7 @@ export default function WishCreatePage() {
     }
 
     const toastId = toast.loading("Creating your digital wish card...");
-    
+
     try {
       let creatorEmail = null;
       if (typeof window !== "undefined") {
@@ -639,14 +958,22 @@ export default function WishCreatePage() {
         body: JSON.stringify(payload),
       });
       const result = await response.json();
-      
+
       if (result.success) {
-        toast.success("Congratulations! Your digital wish card has been created (1 🪙 deducted).", { id: toastId });
+        toast.success(
+          "Congratulations! Your digital wish card has been created (1 🪙 deducted).",
+          { id: toastId },
+        );
         router.push("/wish/list");
       } else if (result.needToken) {
-        toast.error("Insufficient Tokens! Please click 'Watch Ad' in top bar to earn tokens.", { id: toastId });
+        toast.error(
+          "Insufficient Tokens! Please click 'Watch Ad' in top bar to earn tokens.",
+          { id: toastId },
+        );
       } else {
-        toast.error(result.message || "Failed to create wish in database.", { id: toastId });
+        toast.error(result.message || "Failed to create wish in database.", {
+          id: toastId,
+        });
       }
     } catch (err) {
       console.error(err);
@@ -659,7 +986,10 @@ export default function WishCreatePage() {
       {/* Header section */}
       <div className="flex items-center justify-between border-b border-border pb-6">
         <div className="space-y-1">
-          <Link href="/" className="text-muted-foreground text-sm font-semibold hover:text-foreground flex items-center gap-1">
+          <Link
+            href="/"
+            className="text-muted-foreground text-sm font-semibold hover:text-foreground flex items-center gap-1"
+          >
             <ArrowLeft className="w-4 h-4" /> Back to Home
           </Link>
           <h1 className="text-3xl font-black tracking-tight mt-1">
@@ -676,10 +1006,13 @@ export default function WishCreatePage() {
         <div className="flex flex-col gap-8">
           <div className="space-y-3">
             <h2 className="text-2xl font-bold flex items-center gap-2">
-              <Stars className="text-primary w-6 h-6 animate-pulse" /> Step 1: Pick Occasion & Design Template
+              <Stars className="text-primary w-6 h-6 animate-pulse" /> Step 1:
+              Pick Occasion & Design Template
             </h2>
             <p className="text-muted-foreground text-sm">
-              Select one of the major occasions below. We will offer 5 pre-made design templates featuring premium content, color themes, and special animations to bootstrap your design.
+              Select one of the major occasions below. We will offer 5 pre-made
+              design templates featuring premium content, color themes, and
+              special animations to bootstrap your design.
             </p>
           </div>
 
@@ -687,11 +1020,36 @@ export default function WishCreatePage() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {(
               [
-                { id: "birthday", name: "Birthday", emoji: "🎂", class: "from-amber-400 to-orange-500" },
-                { id: "anniversary", name: "Anniversary", emoji: "💖", class: "from-pink-500 to-rose-600" },
-                { id: "wedding", name: "Wedding", emoji: "💍", class: "from-sky-400 to-indigo-500" },
-                { id: "valentine", name: "Valentine", emoji: "💝", class: "from-red-500 to-pink-500" },
-                { id: "other", name: "Other Events", emoji: "✨", class: "from-emerald-400 to-teal-500" },
+                {
+                  id: "birthday",
+                  name: "Birthday",
+                  emoji: "🎂",
+                  class: "from-amber-400 to-orange-500",
+                },
+                {
+                  id: "anniversary",
+                  name: "Anniversary",
+                  emoji: "💖",
+                  class: "from-pink-500 to-rose-600",
+                },
+                {
+                  id: "wedding",
+                  name: "Wedding",
+                  emoji: "💍",
+                  class: "from-sky-400 to-indigo-500",
+                },
+                {
+                  id: "valentine",
+                  name: "Valentine",
+                  emoji: "💝",
+                  class: "from-red-500 to-pink-500",
+                },
+                {
+                  id: "other",
+                  name: "Other Events",
+                  emoji: "✨",
+                  class: "from-emerald-400 to-teal-500",
+                },
               ] as const
             ).map((cat) => (
               <div
@@ -706,7 +1064,9 @@ export default function WishCreatePage() {
                     : "border-border bg-card"
                 }`}
               >
-                <div className={`w-12 h-12 rounded-full bg-linear-to-br ${cat.class} flex items-center justify-center text-white text-2xl shadow-sm group-hover:scale-110 transition-transform`}>
+                <div
+                  className={`w-12 h-12 rounded-full bg-linear-to-br ${cat.class} flex items-center justify-center text-white text-2xl shadow-sm group-hover:scale-110 transition-transform`}
+                >
                   {cat.emoji}
                 </div>
                 <h4 className="font-bold text-sm mt-1">{cat.name}</h4>
@@ -716,7 +1076,9 @@ export default function WishCreatePage() {
 
           {/* 5 Templates Grid */}
           <div className="space-y-4">
-            <h3 className="font-bold text-lg text-muted-foreground">Available Templates for {selectedCategory.toUpperCase()}</h3>
+            <h3 className="font-bold text-lg text-muted-foreground">
+              Available Templates for {selectedCategory.toUpperCase()}
+            </h3>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
               {TEMPLATES_RECORD[selectedCategory].map((tmpl, idx) => (
                 <Card
@@ -724,7 +1086,9 @@ export default function WishCreatePage() {
                   variant={selectedTemplateIndex === idx ? "neon" : "glass"}
                   glowColor="var(--primary)"
                   className={`flex flex-col justify-between p-5 min-h-[16.5rem] transition-all cursor-default border ${
-                    selectedTemplateIndex === idx ? "border-primary ring-2 ring-primary/20" : "border-border/60"
+                    selectedTemplateIndex === idx
+                      ? "border-primary ring-2 ring-primary/20"
+                      : "border-border/60"
                   }`}
                 >
                   <div className="space-y-3">
@@ -742,13 +1106,15 @@ export default function WishCreatePage() {
                       </div>
                     </div>
                     <div>
-                      <h4 className="font-extrabold text-base line-clamp-1">{tmpl.name}</h4>
+                      <h4 className="font-extrabold text-base line-clamp-1">
+                        {tmpl.name}
+                      </h4>
                       <p className="text-xs text-muted-foreground line-clamp-3 mt-1.5 leading-relaxed">
                         {tmpl.tagline}
                       </p>
                     </div>
                   </div>
-                  
+
                   {/* Action buttons inside Card */}
                   <div className="flex gap-2 mt-4">
                     <Button
@@ -791,20 +1157,25 @@ export default function WishCreatePage() {
       {currentStep === 2 && (
         <div className="max-w-2xl mx-auto w-full bg-white/40 dark:bg-black/20 border border-border rounded-3xl p-6 md:p-8 shadow-xl flex flex-col gap-6">
           <h2 className="text-xl font-bold flex items-center gap-2 border-b border-border pb-3">
-            <User className="text-primary w-5 h-5" /> Step 2: Recipient & Sender Information
+            <User className="text-primary w-5 h-5" /> Step 2: Recipient & Sender
+            Information
           </h2>
 
           <div className="grid gap-6">
             {/* Recipient info */}
             <div className="space-y-4">
-              <h3 className="text-sm font-extrabold text-primary uppercase tracking-wider">Recipient Info</h3>
+              <h3 className="text-sm font-extrabold text-primary uppercase tracking-wider">
+                Recipient Info
+              </h3>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="rec-name">Recipient Name *</Label>
                   <Input
                     id="rec-name"
                     value={wishForm.recipient.name}
-                    onChange={(e) => updateTextField("recipient.name", e.target.value)}
+                    onChange={(e) =>
+                      updateTextField("recipient.name", e.target.value)
+                    }
                     placeholder="Enter full name"
                     required
                   />
@@ -814,7 +1185,9 @@ export default function WishCreatePage() {
                   <Input
                     id="rec-nick"
                     value={wishForm.recipient.nickname || ""}
-                    onChange={(e) => updateTextField("recipient.nickname", e.target.value)}
+                    onChange={(e) =>
+                      updateTextField("recipient.nickname", e.target.value)
+                    }
                     placeholder="e.g. Champ, Sis"
                   />
                 </div>
@@ -823,7 +1196,9 @@ export default function WishCreatePage() {
                   <Input
                     id="rec-relation"
                     value={wishForm.recipient.relation || ""}
-                    onChange={(e) => updateTextField("recipient.relation", e.target.value)}
+                    onChange={(e) =>
+                      updateTextField("recipient.relation", e.target.value)
+                    }
                     placeholder="e.g. Best Friend, Mother, Colleague"
                   />
                 </div>
@@ -833,14 +1208,23 @@ export default function WishCreatePage() {
             {/* Sender info */}
             <div className="space-y-4 border-t border-border/50 pt-6">
               <div className="flex justify-between items-center">
-                <h3 className="text-sm font-extrabold text-primary uppercase tracking-wider">Sender Info</h3>
+                <h3 className="text-sm font-extrabold text-primary uppercase tracking-wider">
+                  Sender Info
+                </h3>
                 <div className="flex items-center gap-2">
                   <Checkbox
                     id="send-anon"
                     checked={wishForm.sender.anonymous || false}
-                    onCheckedChange={(checked) => updateTextField("sender.anonymous", !!checked)}
+                    onCheckedChange={(checked) =>
+                      updateTextField("sender.anonymous", !!checked)
+                    }
                   />
-                  <Label htmlFor="send-anon" className="cursor-pointer text-xs font-semibold">Send anonymously</Label>
+                  <Label
+                    htmlFor="send-anon"
+                    className="cursor-pointer text-xs font-semibold"
+                  >
+                    Send anonymously
+                  </Label>
                 </div>
               </div>
 
@@ -850,7 +1234,9 @@ export default function WishCreatePage() {
                   <Input
                     id="send-name"
                     value={wishForm.sender.name}
-                    onChange={(e) => updateTextField("sender.name", e.target.value)}
+                    onChange={(e) =>
+                      updateTextField("sender.name", e.target.value)
+                    }
                     placeholder="Enter your name"
                   />
                 </div>
@@ -883,7 +1269,8 @@ export default function WishCreatePage() {
       {currentStep === 3 && (
         <div className="max-w-3xl mx-auto w-full bg-white/40 dark:bg-black/20 border border-border rounded-3xl p-6 md:p-8 shadow-xl flex flex-col gap-6">
           <h2 className="text-xl font-bold flex items-center gap-2 border-b border-border pb-3">
-            <Smile className="text-primary w-5 h-5" /> Step 3: Card Content & Messages
+            <Smile className="text-primary w-5 h-5" /> Step 3: Card Content &
+            Messages
           </h2>
 
           <div className="grid gap-6">
@@ -944,7 +1331,9 @@ export default function WishCreatePage() {
             {/* List of custom messages */}
             <div className="space-y-4 border-t border-border/50 pt-6">
               <div className="flex justify-between items-center">
-                <Label className="text-sm font-extrabold text-primary uppercase tracking-wider">Messages List</Label>
+                <Label className="text-sm font-extrabold text-primary uppercase tracking-wider">
+                  Messages List
+                </Label>
                 <Button
                   type="button"
                   variant="outline"
@@ -961,7 +1350,9 @@ export default function WishCreatePage() {
                   <div key={index} className="flex gap-2 items-start">
                     <Textarea
                       value={msg}
-                      onChange={(e) => handleMessageChange(index, e.target.value)}
+                      onChange={(e) =>
+                        handleMessageChange(index, e.target.value)
+                      }
                       placeholder={`Message #${index + 1}`}
                       rows={2}
                       className="flex-1"
@@ -1005,9 +1396,13 @@ export default function WishCreatePage() {
 
       {/* STEP 4: Style, Animations and Countdown */}
       {currentStep === 4 && (
-        <form onSubmit={handleCreateWish} className="max-w-3xl mx-auto w-full bg-white/40 dark:bg-black/20 border border-border rounded-3xl p-6 md:p-8 shadow-xl flex flex-col gap-6">
+        <form
+          onSubmit={handleCreateWish}
+          className="max-w-3xl mx-auto w-full bg-white/40 dark:bg-black/20 border border-border rounded-3xl p-6 md:p-8 shadow-xl flex flex-col gap-6"
+        >
           <h2 className="text-xl font-bold flex items-center gap-2 border-b border-border pb-3">
-            <Sparkles className="text-primary w-5 h-5" /> Step 4: Appearance & Animations
+            <Sparkles className="text-primary w-5 h-5" /> Step 4: Appearance &
+            Animations
           </h2>
 
           <div className="grid gap-6">
@@ -1035,7 +1430,9 @@ export default function WishCreatePage() {
 
             {/* Animation toggles */}
             <div className="space-y-3 border-t border-border/50 pt-6">
-              <Label className="text-sm font-extrabold text-primary uppercase tracking-wider block">Special Effects & Animations</Label>
+              <Label className="text-sm font-extrabold text-primary uppercase tracking-wider block">
+                Special Effects & Animations
+              </Label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 bg-muted/30 p-4 rounded-2xl border border-border/40">
                 {(
                   [
@@ -1060,7 +1457,10 @@ export default function WishCreatePage() {
                         }));
                       }}
                     />
-                    <Label htmlFor={`anim-${anim.key}`} className="cursor-pointer text-xs font-semibold">
+                    <Label
+                      htmlFor={`anim-${anim.key}`}
+                      className="cursor-pointer text-xs font-semibold"
+                    >
                       {anim.label}
                     </Label>
                   </div>
@@ -1071,7 +1471,9 @@ export default function WishCreatePage() {
             {/* Countdown timer */}
             <div className="space-y-4 border-t border-border/50 pt-6">
               <div className="flex justify-between items-center">
-                <Label className="text-sm font-extrabold text-primary uppercase tracking-wider">Countdown Clock</Label>
+                <Label className="text-sm font-extrabold text-primary uppercase tracking-wider">
+                  Countdown Clock
+                </Label>
                 <div className="flex items-center gap-2">
                   <Checkbox
                     id="cd-enabled"
@@ -1086,7 +1488,12 @@ export default function WishCreatePage() {
                       }));
                     }}
                   />
-                  <Label htmlFor="cd-enabled" className="cursor-pointer text-xs font-semibold">Enable countdown</Label>
+                  <Label
+                    htmlFor="cd-enabled"
+                    className="cursor-pointer text-xs font-semibold"
+                  >
+                    Enable countdown
+                  </Label>
                 </div>
               </div>
 

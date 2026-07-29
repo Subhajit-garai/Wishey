@@ -2,13 +2,26 @@
 
 import { Card } from "@/designs/card";
 import { useRouter } from "next/navigation";
-import { Sparkles, FolderHeart, ArrowRight, Gift, Heart, Stars, Move } from "lucide-react";
-import { DraggableCardBody, DraggableCardContainer } from "@/components/ui/draggable-card";
+import {
+  Sparkles,
+  FolderHeart,
+  ArrowRight,
+  Gift,
+  Heart,
+  Stars,
+  Move,
+} from "lucide-react";
+import {
+  DraggableCardBody,
+  DraggableCardContainer,
+} from "@/components/ui/draggable-card";
 import { useState } from "react";
 
 export default function Home() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<"birthday" | "anniversary" | "interactive">("birthday");
+  const [activeTab, setActiveTab] = useState<
+    "birthday" | "anniversary" | "interactive"
+  >("birthday");
 
   return (
     <div className="w-full min-h-[calc(100vh-5rem)] p-4 md:p-10 flex flex-col xl:flex-row gap-10 max-w-7xl mx-auto">
@@ -19,7 +32,8 @@ export default function Home() {
             Create Magical <span className="text-brand-gradient">Wishes</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-lg leading-relaxed">
-            Design and share personalized digital greeting cards with stunning visual effects, images, and heart-felt messages.
+            Design and share personalized digital greeting cards with stunning
+            visual effects, images, and heart-felt messages.
           </p>
         </div>
 
@@ -37,7 +51,8 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold mb-2">Create a Wish</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Design a gorgeous, customized greeting card with custom images and messages.
+                Design a gorgeous, customized greeting card with custom images
+                and messages.
               </p>
             </div>
             <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform">
@@ -58,7 +73,8 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold mb-2">Manage Wishes</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                View, edit, track, or share all your previously created wishes in one place.
+                View, edit, track, or share all your previously created wishes
+                in one place.
               </p>
             </div>
             <div className="flex items-center gap-2 text-accent font-semibold text-sm group-hover:translate-x-1 transition-transform">
@@ -70,10 +86,11 @@ export default function Home() {
 
       {/* Right Column: Live Card Showcase */}
       <div className="flex-1 flex flex-col justify-center items-center">
-        <div className="w-full max-w-md bg-white/40 dark:bg-black/20 backdrop-blur-md border border-border p-6 rounded-3xl shadow-xl flex flex-col gap-6">
+        <div className="w-full max-w-lg bg-white/40 dark:bg-black/20 backdrop-blur-md border border-border p-6 rounded-3xl shadow-xl flex flex-col gap-6">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold flex items-center gap-2">
-              <Stars className="w-5 h-5 text-accent animate-pulse" /> Live Previews
+              <Stars className="w-6 h-6 text-accent animate-pulse" />
+              Live Previews
             </h2>
             {/* Tab Toggles */}
             <div className="flex bg-muted p-1 rounded-xl gap-1 text-xs font-semibold">
@@ -111,13 +128,20 @@ export default function Home() {
                   </span>
                   <Gift className="w-5 h-5 text-pink-500 animate-bounce" />
                 </div>
-                <h4 className="text-2xl font-black text-pink-600 dark:text-pink-400 mb-2">Happy Birthday!</h4>
+                <h4 className="text-2xl font-black text-pink-600 dark:text-pink-400 mb-2">
+                  Happy Birthday!
+                </h4>
                 <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed mb-6">
-                  May your day be filled with lots of love, laughter, and cake! Wishing you the happiest of birthdays.
+                  May your day be filled with lots of love, laughter, and cake!
+                  Wishing you the happiest of birthdays.
                 </p>
                 <div className="border-t border-dashed border-neutral-300 dark:border-neutral-700 pt-4 flex justify-between items-center text-xs">
-                  <span className="text-neutral-500 font-medium">To: Sarah Jenkins</span>
-                  <span className="text-neutral-500 font-medium">From: Wishey Team</span>
+                  <span className="text-neutral-500 font-medium">
+                    To: Sarah Jenkins
+                  </span>
+                  <span className="text-neutral-500 font-medium">
+                    From: Wishey Team
+                  </span>
                 </div>
               </Card>
             )}
@@ -135,13 +159,20 @@ export default function Home() {
                   </span>
                   <Heart className="w-5 h-5 text-red-500 fill-red-500 animate-pulse" />
                 </div>
-                <h4 className="text-2xl font-extrabold text-neutral-800 dark:text-neutral-100 mb-2">Happy Anniversary!</h4>
+                <h4 className="text-2xl font-extrabold text-neutral-800 dark:text-neutral-100 mb-2">
+                  Happy Anniversary!
+                </h4>
                 <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mb-6">
-                  Wishing a beautiful couple a lifetime of love and happiness together. Cheers to many more wonderful years!
+                  Wishing a beautiful couple a lifetime of love and happiness
+                  together. Cheers to many more wonderful years!
                 </p>
                 <div className="border-t border-neutral-200 dark:border-neutral-800 pt-4 flex justify-between items-center text-xs">
-                  <span className="text-neutral-500 font-medium">To: Mark & Emma</span>
-                  <span className="text-neutral-500 font-medium">Date: 28th July</span>
+                  <span className="text-neutral-500 font-medium">
+                    To: Mark & Emma
+                  </span>
+                  <span className="text-neutral-500 font-medium">
+                    Date: 28th July
+                  </span>
                 </div>
               </Card>
             )}
@@ -157,7 +188,8 @@ export default function Home() {
                     </div>
                     <h4 className="text-xl font-bold mb-2">Drag Me Around!</h4>
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      This card uses Framer Motion physics and 3D tilting! Drag it anywhere on the screen or hover to tilt it.
+                      This card uses Framer Motion physics and 3D tilting! Drag
+                      it anywhere on the screen or hover to tilt it.
                     </p>
                   </div>
                   <div className="text-[10px] text-center text-muted-foreground border-t border-border/50 pt-3">

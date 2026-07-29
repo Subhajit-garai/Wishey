@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { Header } from "@/designs/header/Header";
+import { Footer } from "@/designs/footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,7 +66,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID!;
+  const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
 
   return (
     <html
@@ -84,7 +85,8 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <Header LogoUrl="/logo.svg" BrandName="Wishey" />
-        <main>{children}</main>
+        <main className="flex-1">{children}</main>
+        <Footer />
         <Toaster />
       </body>
     </html>

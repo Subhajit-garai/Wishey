@@ -180,6 +180,14 @@
   background: color-mix(in oklab, var(--accent) 10%, var(--background));
 }
 
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -202,6 +210,6 @@
     background-attachment: fixed;
   }
   html {
-    @apply font-sans;
+    @apply font-sans no-scrollbar;
   }
 }
