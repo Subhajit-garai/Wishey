@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { hashPassword, createSessionToken } from "@/lib/auth";
+import { hashPassword, createSessionToken, generateSecureId } from "@/lib/auth";
 
 export async function POST(request: Request) {
   try {
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     const hashedPassword = hashPassword(password);
 
     const newUser = {
-      id: Math.random().toString(36).substring(2, 9),
+      id: generateSecureId(),
       name,
       email,
       password: hashedPassword,

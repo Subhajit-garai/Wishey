@@ -779,7 +779,7 @@ export default function WishCreatePage() {
 
   // Core Form State (directly maps to Wish type)
   const [wishForm, setWishForm] = useState<Wish>({
-    id: Math.random().toString(36).substring(2, 9),
+    id: typeof window !== "undefined" && window.crypto?.randomUUID ? window.crypto.randomUUID() : "wish-" + Math.random().toString(36).substring(2, 15),
     slug: "",
     templateId: "birthday-5",
     occasion: "birthday",
@@ -965,6 +965,11 @@ export default function WishCreatePage() {
           { id: toastId },
         );
         router.push("/wish/list");
+      } else if (result.needLogin || response.status === 401) {
+        toast.error("Please log in or sign up to create a wish card.", {
+          id: toastId,
+        });
+        router.push("/login");
       } else if (result.needToken) {
         toast.error(
           "Insufficient Tokens! Please click 'Watch Ad' in top bar to earn tokens.",

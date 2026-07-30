@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { wishes, users } from "@/db/schema";
-import { desc, eq, and } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
+import { verifySession, generateSecureId } from "@/lib/auth";
 
 // GET /api/wish - List wishes (filtered by email if provided)
 export async function GET(request: Request) {
@@ -38,9 +39,22 @@ export async function GET(request: Request) {
   }
 }
 
-// POST /api/wish - Create a new wish (costs 1 token)
+// POST /api/wish - Create a new wish (requires authentication and costs 1 token)
 export async function POST(request: Request) {
   try {
+    // 1. Mandatory Session Verification
+    const session = await verifySession(request);
+    if (!session.authenticated || !session.user) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "You must be logged in to create a wish card.",
+          needLogin: true,
+        },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
     
     if (!body.title || !body.recipient?.name) {
@@ -53,34 +67,31 @@ export async function POST(request: Request) {
       );
     }
 
-    const creatorEmail = body.creatorEmail || body.sender?.email || null;
-
-    // Check user tokens if user email provided
-    if (creatorEmail) {
-      const userList = await db.select().from(users).where(eq(users.email, creatorEmail)).limit(1);
-      if (userList.length > 0) {
-        const user = userList[0];
-        if ((user.tokens ?? 0) < 1) {
-          return NextResponse.json(
-            {
-              success: false,
-              message: "Insufficient tokens! Please watch an ad to earn creation tokens.",
-              needToken: true,
-            },
-            { status: 403 }
-          );
-        }
-
-        // Deduct 1 token
-        await db
-          .update(users)
-          .set({ tokens: (user.tokens ?? 1) - 1 })
-          .where(eq(users.email, creatorEmail));
-      }
+    // 2. Token balance verification
+    const userList = await db.select().from(users).where(eq(users.id, session.user.id)).limit(1);
+    if (userList.length === 0 || (userList[0].tokens ?? 0) < 1) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Insufficient tokens! Please watch an ad to earn creation tokens.",
+          needToken: true,
+        },
+        { status: 403 }
+      );
     }
 
+    // 3. Deduct 1 token
+    const user = userList[0];
+    await db
+      .update(users)
+      .set({ tokens: (user.tokens ?? 1) - 1 })
+      .where(eq(users.id, session.user.id));
+
+    // 4. Generate unguessable 128-bit UUID for wish card
+    const wishId = generateSecureId();
+
     const newWish = {
-      id: body.id || Math.random().toString(36).substring(2, 9),
+      id: wishId,
       slug: body.slug || (body.title || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, ""),
       templateId: body.templateId || "default",
       occasion: body.occasion || "custom",
@@ -108,7 +119,7 @@ export async function POST(request: Request) {
       countdown: body.countdown || null,
       isPublic: body.isPublic !== undefined ? body.isPublic : true,
       isActive: true,
-      creatorEmail: creatorEmail,
+      creatorEmail: session.user.email,
       allowComments: body.allowComments !== undefined ? body.allowComments : true,
       allowReactions: body.allowReactions !== undefined ? body.allowReactions : true,
       views: body.views || 0,

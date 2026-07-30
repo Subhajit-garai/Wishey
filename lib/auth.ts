@@ -13,6 +13,13 @@ export interface SessionPayload {
 }
 
 /**
+ * Generates a 128-bit cryptographically secure UUID v4 (36 chars)
+ */
+export function generateSecureId(): string {
+  return crypto.randomUUID();
+}
+
+/**
  * Hashes a plaintext password using PBKDF2 with salt
  */
 export function hashPassword(password: string): string {
