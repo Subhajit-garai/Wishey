@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { verifyPassword, createSessionToken } from "@/lib/auth";
 
 export async function POST(request: Request) {
   try {
@@ -33,8 +34,9 @@ export async function POST(request: Request) {
 
     const user = found[0];
 
-    // 2. Match password (plain check for simulation)
-    if (user.password !== password) {
+    // 2. Match password using secure hash verification
+    const passwordValid = verifyPassword(password, user.password);
+    if (!passwordValid) {
       return NextResponse.json(
         {
           success: false,
@@ -44,7 +46,14 @@ export async function POST(request: Request) {
       );
     }
 
-    // 3. Return user payload
+    // 3. Generate signed session token
+    const token = createSessionToken({
+      userId: user.id,
+      email: user.email,
+      role: user.role,
+    });
+
+    // 4. Return user payload & set HttpOnly cookie
     const response = NextResponse.json({
       success: true,
       message: "Welcome back! Login successful.",
@@ -57,10 +66,18 @@ export async function POST(request: Request) {
       },
     });
 
-    // Set a mock user session cookie
+    // Set secure HttpOnly session cookie
+    response.cookies.set("wishey_session", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
+
     response.cookies.set("wishey_user_role", user.role, {
       path: "/",
-      maxAge: 60 * 60 * 24, // 1 day
+      maxAge: 60 * 60 * 24 * 7,
     });
 
     return response;

@@ -50,18 +50,21 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<"wishes" | "users">("wishes");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  // Authenticate and fetch stats
+  // Authenticate and fetch stats from server
   const fetchStats = async () => {
     try {
       const response = await fetch("/api/admin/stats");
       const result = await response.json();
-      if (result.success) {
+      if (response.ok && result.success) {
+        setAuthorized(true);
         setData(result.data);
       } else {
-        toast.error(result.message || "Failed to load admin metrics.");
+        setAuthorized(false);
+        toast.error(result.message || "Access denied. Admin privileges required.");
       }
     } catch (err) {
       console.error(err);
+      setAuthorized(false);
       toast.error("Network error fetching statistics.");
     } finally {
       setLoading(false);
@@ -69,20 +72,7 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const userStr = localStorage.getItem("wishey_user");
-      if (userStr) {
-        const user = JSON.parse(userStr);
-        if (user.role === "admin") {
-          setAuthorized(true);
-          fetchStats();
-        } else {
-          setLoading(false);
-        }
-      } else {
-        setLoading(false);
-      }
-    }
+    fetchStats();
   }, []);
 
   // Delete wish handler

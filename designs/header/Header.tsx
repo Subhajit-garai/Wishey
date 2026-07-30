@@ -43,20 +43,45 @@ export const Header = ({
   };
 
   useEffect(() => {
-    // Check local storage for session info on mount
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("wishey_user");
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        setCurrentUser(parsed);
-        if (parsed.email) {
-          fetchTokens(parsed.email);
+    // Check session status from server
+    const checkSession = async () => {
+      try {
+        const res = await fetch("/api/user/me");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.data) {
+            setCurrentUser(data.data);
+            if (data.data.email) {
+              fetchTokens(data.data.email);
+            }
+            return;
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+      // Fallback check local storage
+      if (typeof window !== "undefined") {
+        const stored = localStorage.getItem("wishey_user");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          setCurrentUser(parsed);
+          if (parsed.email) {
+            fetchTokens(parsed.email);
+          }
         }
       }
-    }
+    };
+
+    checkSession();
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/user/logout", { method: "POST" });
+    } catch (e) {
+      console.error("Logout error:", e);
+    }
     if (typeof window !== "undefined") {
       localStorage.removeItem("wishey_user");
     }

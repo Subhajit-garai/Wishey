@@ -2,10 +2,22 @@ import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { users, wishes } from "@/db/schema";
 import { sql, desc } from "drizzle-orm";
+import { verifyAdminSession } from "@/lib/auth";
 
 // GET /api/admin/stats - Retrieve overall app performance metrics
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    // 0. Server-side Authorization Check
+    const auth = await verifyAdminSession(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: auth.message || "Unauthorized access to admin metrics",
+        },
+        { status: 403 }
+      );
+    }
     // 1. Gather stats using SQL helper queries
     const totalUsersResult = await db.select({ count: sql<number>`count(*)` }).from(users);
     const totalWishesResult = await db.select({ count: sql<number>`count(*)` }).from(wishes);

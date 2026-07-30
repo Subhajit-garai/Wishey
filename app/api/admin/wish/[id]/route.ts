@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { wishes } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { verifyAdminSession } from "@/lib/auth";
 
 // DELETE /api/admin/wish/[id] - Allows administrators to delete inappropriate wishes
 export async function DELETE(
@@ -9,6 +10,18 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // 0. Server-side Authorization Check
+    const auth = await verifyAdminSession(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: auth.message || "Unauthorized access",
+        },
+        { status: 403 }
+      );
+    }
+
     const { id } = await params;
 
     if (!id) {
