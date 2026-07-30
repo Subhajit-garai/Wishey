@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { AdBanner } from "@/components/AdBanner";
-import { Coins, Sparkles, Play, CheckCircle2 } from "lucide-react";
+import { AdBanner, type AdStatus } from "@/components/AdBanner";
+import { Coins, Sparkles, Play, CheckCircle2, AlertOctagon } from "lucide-react";
 import { toast } from "sonner";
 
 interface EarnTokenModalProps {
@@ -23,8 +23,14 @@ export const EarnTokenModal = ({
   const [isWatching, setIsWatching] = useState(false);
   const [progress, setProgress] = useState(0);
   const [earned, setEarned] = useState(false);
+  const [adStatus, setAdStatus] = useState<AdStatus>("loading");
 
   const handleWatchAd = async () => {
+    if (adStatus !== "loaded") {
+      toast.error("AdSense is not playing an active ad. Token reward cannot be granted.");
+      return;
+    }
+
     setIsWatching(true);
     setProgress(0);
     setEarned(false);
@@ -124,8 +130,18 @@ export const EarnTokenModal = ({
 
             {/* Ad Container Box */}
             <div className="my-2 border border-dashed border-border rounded-xl p-4 bg-muted/20 min-h-[160px] flex flex-col items-center justify-center text-center">
-              <AdBanner />
+              <AdBanner onAdStatusChange={setAdStatus} />
             </div>
+
+            {/* Ad Failure / Verification Warning */}
+            {adStatus !== "loaded" && !isWatching && (
+              <div className="p-3 bg-destructive/10 border border-destructive/20 text-destructive rounded-xl text-xs flex items-center gap-2">
+                <AlertOctagon className="w-5 h-5 shrink-0" />
+                <span>
+                  AdSense is pending verification or no active ad is playing. Token rewards are disabled until an ad plays.
+                </span>
+              </div>
+            )}
 
             {/* Progress / Reward Status */}
             {isWatching ? (
@@ -150,11 +166,15 @@ export const EarnTokenModal = ({
             <div className="flex gap-2 pt-2">
               <Button
                 onClick={handleWatchAd}
-                disabled={isWatching}
-                className="flex-1 bg-amber-500 hover:bg-amber-600 text-black font-extrabold gap-2 cursor-pointer"
+                disabled={isWatching || adStatus !== "loaded"}
+                className={`flex-1 font-extrabold gap-2 cursor-pointer ${
+                  adStatus === "loaded"
+                    ? "bg-amber-500 hover:bg-amber-600 text-black"
+                    : "bg-muted text-muted-foreground cursor-not-allowed opacity-60"
+                }`}
               >
-                <Play className="w-4 h-4 fill-black" />
-                {isWatching ? "Watching Ad..." : "Claim 1 Token"}
+                <Play className="w-4 h-4 fill-current" />
+                {isWatching ? "Watching Ad..." : adStatus !== "loaded" ? "Ads Unavailable (Disabled)" : "Claim 1 Token"}
               </Button>
               <Button
                 variant="outline"
