@@ -75,3 +75,27 @@ export const users = pgTableCore("users", {
   tokens: integerCore("tokens").default(3).notNull(),
   createdAt: varcharCore("created_at", { length: 100 }).notNull(),
 });
+
+export const folders = pgTableCore("folders", {
+  id: varcharCore("id", { length: 255 }).primaryKey(),
+  userId: varcharCore("user_id", { length: 255 }).notNull(),
+  name: varcharCore("name", { length: 255 }).notNull(),
+  description: textCore("description"),
+  createdAt: varcharCore("created_at", { length: 100 }).notNull(),
+  updatedAt: varcharCore("updated_at", { length: 100 }).notNull(),
+});
+
+export const dates = pgTableCore("dates", {
+  id: varcharCore("id", { length: 255 }).primaryKey(),
+  userId: varcharCore("user_id", { length: 255 }).notNull(),
+  name: varcharCore("name", { length: 255 }).notNull(),
+  date: varcharCore("date", { length: 100 }).notNull(),
+  folderId: varcharCore("folder_id", { length: 255 }),
+  relation: varcharCore("relation", { length: 100 }).notNull(),
+  specialRating: integerCore("special_rating").default(5).notNull(),
+  eventType: varcharCore("event_type", { length: 100 }).default("birthday").notNull(),
+  notes: textCore("notes"),
+  createdAt: varcharCore("created_at", { length: 100 }).notNull(),
+  updatedAt: varcharCore("updated_at", { length: 100 }).notNull(),
+});
+

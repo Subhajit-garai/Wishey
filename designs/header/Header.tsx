@@ -19,6 +19,7 @@ import {
   ShieldAlert,
   LogOut,
   User as UserIcon,
+  Calendar,
 } from "lucide-react";
 
 export const Header = ({
@@ -142,6 +143,11 @@ export const Header = ({
           <NavLink href={"/wish/list"}>
             <Button variant="ghost" className="font-semibold hover:bg-accent">
               My Wishes
+            </Button>
+          </NavLink>
+          <NavLink href={"/dates"}>
+            <Button variant="ghost" className="font-semibold hover:bg-accent">
+              Close Ones Dates
             </Button>
           </NavLink>
           <NavLink href={"/wish/create"}>
@@ -283,6 +289,15 @@ export const Header = ({
               }`}
             >
               <Gift className="w-4 h-4" /> My Wishes
+            </NavLink>
+
+            <NavLink
+              href="/dates"
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
+                pathname === "/dates" ? "bg-primary/10 text-primary" : "hover:bg-accent"
+              }`}
+            >
+              <Calendar className="w-4 h-4" /> Close Ones Dates
             </NavLink>
 
             <NavLink
