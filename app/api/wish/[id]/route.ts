@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { wishes } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { verifySession } from "@/lib/auth";
 
-// GET /api/wish/[id] - Fetch a single wish by ID
+// GET /api/wish/[id] - Fetch a single wish by ID (Public if active, Owner/Admin if inactive)
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -27,10 +28,26 @@ export async function GET(
       );
     }
 
+    const wish = found[0];
+
+    // If wish is inactive, verify user is owner or admin
+    if (wish.isActive === false) {
+      const session = await verifySession(request);
+      const isOwner = session.authenticated && session.user?.email === wish.creatorEmail;
+      const isAdmin = session.authenticated && session.user?.role === "admin";
+
+      if (!isOwner && !isAdmin) {
+        return NextResponse.json(
+          { success: false, message: "Wish card is inactive." },
+          { status: 403 }
+        );
+      }
+    }
+
     return NextResponse.json({
       success: true,
       message: "Fetched wish successfully",
-      data: found[0],
+      data: wish,
     });
   } catch (error) {
     console.error("GET /api/wish/[id] error:", error);
@@ -45,12 +62,20 @@ export async function GET(
   }
 }
 
-// PATCH /api/wish/[id] - Toggle isActive status
+// PATCH /api/wish/[id] - Toggle isActive status (Requires wish owner or admin)
 export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await verifySession(request);
+    if (!session.authenticated || !session.user) {
+      return NextResponse.json(
+        { success: false, message: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
     const { id } = await params;
     const body = await request.json();
     const { isActive } = body;
@@ -59,6 +84,26 @@ export async function PATCH(
       return NextResponse.json(
         { success: false, message: "Invalid parameters (id or isActive)" },
         { status: 400 }
+      );
+    }
+
+    // Verify existing wish ownership
+    const found = await db.select().from(wishes).where(eq(wishes.id, id)).limit(1);
+    if (found.length === 0) {
+      return NextResponse.json(
+        { success: false, message: "Wish not found" },
+        { status: 404 }
+      );
+    }
+
+    const wish = found[0];
+    const isOwner = session.user.email === wish.creatorEmail;
+    const isAdmin = session.user.role === "admin";
+
+    if (!isOwner && !isAdmin) {
+      return NextResponse.json(
+        { success: false, message: "You do not have permission to modify this wish card" },
+        { status: 403 }
       );
     }
 
@@ -82,18 +127,46 @@ export async function PATCH(
   }
 }
 
-// DELETE /api/wish/[id] - Delete a wish
+// DELETE /api/wish/[id] - Delete a wish (Requires wish owner or admin)
 export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await verifySession(request);
+    if (!session.authenticated || !session.user) {
+      return NextResponse.json(
+        { success: false, message: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
     const { id } = await params;
 
     if (!id) {
       return NextResponse.json(
         { success: false, message: "Missing wish ID" },
         { status: 400 }
+      );
+    }
+
+    // Verify existing wish ownership
+    const found = await db.select().from(wishes).where(eq(wishes.id, id)).limit(1);
+    if (found.length === 0) {
+      return NextResponse.json(
+        { success: false, message: "Wish not found" },
+        { status: 404 }
+      );
+    }
+
+    const wish = found[0];
+    const isOwner = session.user.email === wish.creatorEmail;
+    const isAdmin = session.user.role === "admin";
+
+    if (!isOwner && !isAdmin) {
+      return NextResponse.json(
+        { success: false, message: "You do not have permission to delete this wish card" },
+        { status: 403 }
       );
     }
 

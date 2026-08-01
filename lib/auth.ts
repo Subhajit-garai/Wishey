@@ -84,10 +84,12 @@ export function verifySessionToken(token: string): SessionPayload | null {
   }
 }
 
+import { cookies } from "next/headers";
+
 /**
- * Extracts and verifies session token from HTTP Request cookies or Authorization header
+ * Extracts and verifies session token from HTTP Request cookies or next/headers
  */
-export async function verifySession(request: Request): Promise<{
+export async function verifySession(request?: Request): Promise<{
   authenticated: boolean;
   user?: { id: string; name: string; email: string; role: string };
   message?: string;
@@ -95,19 +97,25 @@ export async function verifySession(request: Request): Promise<{
   try {
     let token: string | undefined;
 
-    const cookieHeader = request.headers.get("cookie");
-    if (cookieHeader) {
-      const match = cookieHeader.match(/wishey_session=([^;]+)/);
-      if (match) {
-        token = match[1];
+    if (request) {
+      const cookieHeader = request.headers.get("cookie");
+      if (cookieHeader) {
+        const match = cookieHeader.match(/wishey_session=([^;]+)/);
+        if (match) {
+          token = match[1];
+        }
       }
-    }
 
-    if (!token) {
-      const authHeader = request.headers.get("authorization");
-      if (authHeader && authHeader.startsWith("Bearer ")) {
-        token = authHeader.substring(7);
+      if (!token) {
+        const authHeader = request.headers.get("authorization");
+        if (authHeader && authHeader.startsWith("Bearer ")) {
+          token = authHeader.substring(7);
+        }
       }
+    } else {
+      // Fallback for Server Components & Server Actions using next/headers
+      const cookieStore = await cookies();
+      token = cookieStore.get("wishey_session")?.value;
     }
 
     if (!token) {

@@ -1,27 +1,26 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { users } from "@/db/schema";
-import { eq, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
+import { verifySession } from "@/lib/auth";
 
-// GET /api/user/token?email=...
+// GET /api/user/token - Get creation token count for authenticated user
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const email = searchParams.get("email");
-
-    if (!email) {
+    const session = await verifySession(request);
+    if (!session.authenticated || !session.user) {
       return NextResponse.json(
-        { success: false, message: "Missing user email parameter" },
-        { status: 400 }
+        { success: false, message: session.message || "Authentication required" },
+        { status: 401 }
       );
     }
 
-    const found = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    const found = await db.select().from(users).where(eq(users.id, session.user.id)).limit(1);
 
     if (found.length === 0) {
       return NextResponse.json({
         success: true,
-        data: { tokens: 3 }, // Guest/Default fallback tokens
+        data: { tokens: 3 },
       });
     }
 
@@ -42,30 +41,27 @@ export async function GET(request: Request) {
   }
 }
 
-// POST /api/user/token - Add tokens after watching ad
+// POST /api/user/token - Add tokens after watching ad for authenticated user
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { email, amount = 1 } = body;
-
-    if (!email) {
+    const session = await verifySession(request);
+    if (!session.authenticated || !session.user) {
       return NextResponse.json(
-        {
-          success: true,
-          message: `Earned ${amount} token!`,
-          data: { tokens: 1 },
-        }
+        { success: false, message: "Authentication required to earn tokens" },
+        { status: 401 }
       );
     }
 
-    const found = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    const body = await request.json().catch(() => ({}));
+    const amount = Number(body.amount) || 1;
+
+    const found = await db.select().from(users).where(eq(users.id, session.user.id)).limit(1);
 
     if (found.length === 0) {
-      return NextResponse.json({
-        success: true,
-        message: `Earned ${amount} token!`,
-        data: { tokens: 1 },
-      });
+      return NextResponse.json(
+        { success: false, message: "User account not found" },
+        { status: 404 }
+      );
     }
 
     const updatedTokens = (found[0].tokens || 0) + amount;
@@ -73,7 +69,7 @@ export async function POST(request: Request) {
     await db
       .update(users)
       .set({ tokens: updatedTokens })
-      .where(eq(users.email, email));
+      .where(eq(users.id, session.user.id));
 
     return NextResponse.json({
       success: true,

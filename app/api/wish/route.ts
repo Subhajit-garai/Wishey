@@ -4,27 +4,30 @@ import { wishes, users } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
 import { verifySession, generateSecureId } from "@/lib/auth";
 
-// GET /api/wish - List wishes (filtered by email if provided)
+// GET /api/wish - List authenticated user's created wishes only
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const email = searchParams.get("email");
-
-    let query;
-    if (email) {
-      // Return user's specific wishes
-      query = db.select().from(wishes).where(eq(wishes.creatorEmail, email)).orderBy(desc(wishes.createdAt));
-    } else {
-      // Return active public wishes
-      query = db.select().from(wishes).where(eq(wishes.isActive, true)).orderBy(desc(wishes.createdAt));
+    const session = await verifySession(request);
+    if (!session.authenticated || !session.user?.email) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: session.message || "Authentication required to view your wishes",
+        },
+        { status: 401 }
+      );
     }
 
-    const list = await query;
+    const userWishes = await db
+      .select()
+      .from(wishes)
+      .where(eq(wishes.creatorEmail, session.user.email))
+      .orderBy(desc(wishes.createdAt));
 
     return NextResponse.json({
       success: true,
-      message: "Fetched wishes successfully",
-      data: list,
+      message: "Fetched user wishes successfully",
+      data: userWishes,
     });
   } catch (error) {
     console.error("GET /api/wish error:", error);
