@@ -116,6 +116,7 @@ export function DatesDashboard({
       Name: item.name,
       Date: item.date,
       Relation: item.relation,
+      Gender: item.gender || "other",
       "Special Rating": item.specialRating,
       Folder:
         item.folderName ||
@@ -253,6 +254,7 @@ export function DatesDashboard({
         (d) =>
           d.name.toLowerCase().includes(q) ||
           d.relation.toLowerCase().includes(q) ||
+          (d.gender && d.gender.toLowerCase().includes(q)) ||
           (d.folderName && d.folderName.toLowerCase().includes(q)) ||
           (d.notes && d.notes.toLowerCase().includes(q))
       );
@@ -293,6 +295,27 @@ export function DatesDashboard({
     return found ? found.name : "Folder";
   }, [selectedFolderId, foldersList]);
 
+  // Share Wishey App / Dates via Web Share API or Clipboard link
+  const handleShareApp = async () => {
+    const shareData = {
+      title: "Wishey - Close Ones & Important Dates",
+      text: "Track birthdays, anniversaries, & milestones for your close ones with live countdowns on Wishey! 🎁",
+      url: typeof window !== "undefined" ? window.location.origin + "/dates" : "https://wishey.com/dates",
+    };
+
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share(shareData);
+        toast.success("Shared successfully!");
+      } catch {
+        // User closed share dialog
+      }
+    } else {
+      navigator.clipboard.writeText(shareData.url);
+      toast.success("Wishey link copied to clipboard! Paste and share on WhatsApp, Instagram, or Telegram.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background/95 to-accent/20 py-8 px-4 md:px-10">
       <div className="max-w-7xl mx-auto space-y-8">
@@ -314,6 +337,14 @@ export function DatesDashboard({
             </div>
 
             <div className="flex flex-wrap gap-3">
+              <Button
+                onClick={handleShareApp}
+                variant="outline"
+                className="bg-purple-500/20 hover:bg-purple-500/30 text-purple-200 border-purple-400/40 font-semibold backdrop-blur-sm cursor-pointer"
+              >
+                <Share2 className="w-4 h-4 mr-2 text-purple-300" />
+                Share App
+              </Button>
               <Button
                 onClick={() => setIsImportModalOpen(true)}
                 variant="outline"
@@ -563,7 +594,7 @@ export function DatesDashboard({
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   type="text"
-                  placeholder="Search by name, relation, folder, notes..."
+                  placeholder="Search by name, relation, gender, folder, notes..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-9 w-full bg-background"
@@ -657,12 +688,19 @@ export function DatesDashboard({
                   const currentFolderName =
                     foldersList.find((f) => f.id === item.folderId)?.name || item.folderName;
 
+                  const genderIcon =
+                    item.gender === "female"
+                      ? "👩"
+                      : item.gender === "male"
+                      ? "👨"
+                      : "🌈";
+
                   return (
                     <div
                       key={item.id}
                       className="group relative rounded-2xl bg-card border border-border/50 shadow-sm hover:shadow-xl hover:border-purple-500/30 transition-all duration-300 p-5 flex flex-col justify-between overflow-hidden"
                     >
-                      {/* Top Bar: Person Name, Event Badge, Days Left */}
+                      {/* Top Bar: Person Name, Gender, Event Badge, Days Left */}
                       <div className="space-y-3">
                         <div className="flex items-start justify-between gap-3">
                           <div>
@@ -670,6 +708,9 @@ export function DatesDashboard({
                               <h3 className="text-lg font-bold group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                                 {item.name}
                               </h3>
+                              <span className="text-xs" title={`Gender: ${item.gender || "other"}`}>
+                                {genderIcon}
+                              </span>
                               <span
                                 className={`text-[11px] font-extrabold px-2.5 py-0.5 rounded-full border ${relationBadgeStyle}`}
                               >

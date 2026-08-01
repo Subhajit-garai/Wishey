@@ -92,6 +92,7 @@ export const dates = pgTableCore("dates", {
   date: varcharCore("date", { length: 100 }).notNull(),
   folderId: varcharCore("folder_id", { length: 255 }),
   relation: varcharCore("relation", { length: 100 }).notNull(),
+  gender: varcharCore("gender", { length: 50 }).default("other"),
   specialRating: integerCore("special_rating").default(5).notNull(),
   eventType: varcharCore("event_type", { length: 100 }).default("birthday").notNull(),
   notes: textCore("notes"),

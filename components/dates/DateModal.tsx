@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X, Calendar, Star, Heart, Loader2, Sparkles } from "lucide-react";
+import { X, Calendar, Star, Heart, Loader2, Sparkles, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,6 +15,7 @@ export interface DateItem {
   folderId?: string | null;
   folderName?: string | null;
   relation: string;
+  gender?: string | null;
   specialRating: number;
   eventType: string;
   notes?: string | null;
@@ -49,6 +50,12 @@ const RELATIONS = [
   "Other",
 ];
 
+const GENDERS = [
+  { value: "female", label: "👩 Female" },
+  { value: "male", label: "👨 Male" },
+  { value: "other", label: "🌈 Other / Not Specified" },
+];
+
 const EVENT_TYPES = [
   { value: "birthday", label: "Birthday 🎂" },
   { value: "anniversary", label: "Anniversary 💍" },
@@ -67,6 +74,7 @@ export function DateModal({
   const [date, setDate] = useState("");
   const [folderId, setFolderId] = useState("none");
   const [relation, setRelation] = useState("Friend");
+  const [gender, setGender] = useState("female");
   const [specialRating, setSpecialRating] = useState<number>(8);
   const [eventType, setEventType] = useState("birthday");
   const [notes, setNotes] = useState("");
@@ -78,6 +86,7 @@ export function DateModal({
       setDate(dateToEdit.date || "");
       setFolderId(dateToEdit.folderId || "none");
       setRelation(dateToEdit.relation || "Friend");
+      setGender(dateToEdit.gender || "other");
       setSpecialRating(dateToEdit.specialRating || 8);
       setEventType(dateToEdit.eventType || "birthday");
       setNotes(dateToEdit.notes || "");
@@ -86,6 +95,7 @@ export function DateModal({
       setDate(new Date().toISOString().split("T")[0]);
       setFolderId("none");
       setRelation("Friend");
+      setGender("female");
       setSpecialRating(8);
       setEventType("birthday");
       setNotes("");
@@ -116,6 +126,7 @@ export function DateModal({
         date,
         folderId: folderId === "none" ? null : folderId,
         relation: relation.trim(),
+        gender,
         specialRating: Number(specialRating),
         eventType,
         notes: notes.trim(),
@@ -226,8 +237,8 @@ export function DateModal({
             </div>
           </div>
 
-          {/* Relation & Folder Selection Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Relation, Gender & Folder Selection Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
                 Relation *
@@ -235,7 +246,7 @@ export function DateModal({
               <select
                 value={relation}
                 onChange={(e) => setRelation(e.target.value)}
-                className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="w-full h-10 px-2.5 rounded-md border border-input bg-background text-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 {RELATIONS.map((r) => (
                   <option key={r} value={r}>
@@ -247,14 +258,31 @@ export function DateModal({
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
-                Folder (Category)
+                Gender
+              </label>
+              <select
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                className="w-full h-10 px-2.5 rounded-md border border-input bg-background text-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {GENDERS.map((g) => (
+                  <option key={g.value} value={g.value}>
+                    {g.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
+                Folder
               </label>
               <select
                 value={folderId}
                 onChange={(e) => setFolderId(e.target.value)}
-                className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="w-full h-10 px-2 rounded-md border border-input bg-background text-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                <option value="none">📂 No Folder (General)</option>
+                <option value="none">📂 No Folder</option>
                 {folders.map((f) => (
                   <option key={f.id} value={f.id}>
                     📁 {f.name}

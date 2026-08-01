@@ -26,6 +26,7 @@ export async function GET(request: Request) {
         folderId: dates.folderId,
         folderName: folders.name,
         relation: dates.relation,
+        gender: dates.gender,
         specialRating: dates.specialRating,
         eventType: dates.eventType,
         notes: dates.notes,
@@ -53,6 +54,7 @@ export async function GET(request: Request) {
         (d) =>
           d.name.toLowerCase().includes(search) ||
           d.relation.toLowerCase().includes(search) ||
+          (d.gender && d.gender.toLowerCase().includes(search)) ||
           (d.notes && d.notes.toLowerCase().includes(search))
       );
     }
@@ -91,7 +93,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { name, date, folderId, relation, specialRating, eventType, notes } = body;
+    const { name, date, folderId, relation, gender, specialRating, eventType, notes } = body;
 
     if (!name || typeof name !== "string" || !name.trim()) {
       return NextResponse.json({ success: false, error: "Name is required" }, { status: 400 });
@@ -115,6 +117,7 @@ export async function POST(request: Request) {
       date: date.trim(),
       folderId: folderId && folderId !== "none" ? folderId : null,
       relation: relation.trim(),
+      gender: gender ? gender.trim().toLowerCase() : "other",
       specialRating: rating,
       eventType: eventType || "birthday",
       notes: notes ? notes.trim() : null,
@@ -153,7 +156,7 @@ export async function PUT(request: Request) {
     }
 
     const body = await request.json();
-    const { id, name, date, folderId, relation, specialRating, eventType, notes } = body;
+    const { id, name, date, folderId, relation, gender, specialRating, eventType, notes } = body;
 
     if (!id) {
       return NextResponse.json({ success: false, error: "Date ID is required" }, { status: 400 });
@@ -180,6 +183,7 @@ export async function PUT(request: Request) {
         date: date ? date.trim() : existing[0].date,
         folderId: folderId !== undefined ? (folderId && folderId !== "none" ? folderId : null) : existing[0].folderId,
         relation: relation ? relation.trim() : existing[0].relation,
+        gender: gender !== undefined ? (gender ? gender.trim().toLowerCase() : "other") : existing[0].gender,
         specialRating: rating,
         eventType: eventType || existing[0].eventType,
         notes: notes !== undefined ? (notes ? notes.trim() : null) : existing[0].notes,

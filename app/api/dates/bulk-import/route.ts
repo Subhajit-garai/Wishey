@@ -8,6 +8,7 @@ interface BulkImportItem {
   name: string;
   date: string;
   relation?: string;
+  gender?: string;
   specialRating?: number;
   folderName?: string;
   folderId?: string;
@@ -97,7 +98,19 @@ export async function POST(request: Request) {
 
       const rating = Math.min(10, Math.max(1, parseInt(String(item.specialRating || 5), 10)));
       const rel = item.relation && item.relation.trim() ? item.relation.trim() : "Friend";
-      const evType = item.eventType && item.eventType.trim() ? item.eventType.trim().toLowerCase() : "birthday";
+      const gen = item.gender && item.gender.trim() ? item.gender.trim().toLowerCase() : "other";
+
+      const rawEv = (item.eventType || "").trim().toLowerCase();
+      let evType = "birthday";
+      if (rawEv.includes("birth") || rawEv.includes("bday") || rawEv.includes("b-day")) {
+        evType = "birthday";
+      } else if (rawEv.includes("anniver") || rawEv.includes("wedding")) {
+        evType = "anniversary";
+      } else if (rawEv.includes("mile")) {
+        evType = "milestone";
+      } else if (rawEv) {
+        evType = "other";
+      }
 
       validDatesToInsert.push({
         id: generateSecureId(),
@@ -106,6 +119,7 @@ export async function POST(request: Request) {
         date: item.date.trim(),
         folderId: assignedFolderId,
         relation: rel,
+        gender: gen,
         specialRating: rating,
         eventType: evType,
         notes: item.notes ? item.notes.trim() : null,

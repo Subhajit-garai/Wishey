@@ -20,6 +20,7 @@ interface ParsedRow {
   name: string;
   date: string;
   relation: string;
+  gender: string;
   specialRating: number;
   folderName: string;
   eventType: string;
@@ -95,7 +96,9 @@ export function ImportExcelModal({
 
         const firstSheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[firstSheetName];
-        const jsonRows: any[] = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+        const jsonRows: any[] = XLSX.utils.sheet_to_json(worksheet, {
+          defval: "",
+        });
 
         if (jsonRows.length === 0) {
           toast.error("The uploaded file contains no data rows.");
@@ -103,25 +106,84 @@ export function ImportExcelModal({
           return;
         }
 
-        const rows: ParsedRow[] = jsonRows.map((row, idx) => {
-          // Normalize case insensitive keys
+        const rows: ParsedRow[] = jsonRows.map((row) => {
           const keys = Object.keys(row);
+          const values = Object.values(row);
+
           const findVal = (keyName: string) => {
             const match = keys.find(
-              (k) => k.toLowerCase().replace(/[^a-z0-9]/g, "") === keyName.toLowerCase()
+              (k) =>
+                k.toLowerCase().replace(/[^a-z0-9]/g, "") ===
+                keyName.toLowerCase(),
             );
             return match ? row[match] : "";
           };
 
-          const name = String(findVal("name") || findVal("person") || "").trim();
-          const rawDate = findVal("date") || findVal("birthday") || findVal("eventdate");
+          // 1. Header Name Matching (Works regardless of column alignment/order!)
+          let name = String(
+            findVal("name") || findVal("person") || "",
+          ).trim();
+          let rawDate =
+            findVal("date") || findVal("birthday") || findVal("eventdate");
+          let relation = String(
+            findVal("relation") || findVal("relationship") || "",
+          ).trim();
+          let gender = String(findVal("gender") || findVal("sex") || "")
+            .trim()
+            .toLowerCase();
+          let rawRating =
+            findVal("specialrating") ||
+            findVal("rating") ||
+            findVal("score");
+          let folderName = String(
+            findVal("folder") || findVal("foldername") || "",
+          ).trim();
+          let rawEv = String(
+            findVal("eventtype") || findVal("type") || "",
+          )
+            .trim()
+            .toLowerCase();
+          let notes = String(
+            findVal("notes") || findVal("description") || "",
+          ).trim();
+
+          // 2. Positional Fallback if file has no header row or generic headers (__EMPTY)
+          const isGenericHeaders = keys.some(
+            (k) => k.startsWith("__EMPTY") || !isNaN(Number(k)),
+          );
+          if ((!name || !rawDate) && (isGenericHeaders || values.length >= 2)) {
+            name = name || String(values[0] || "").trim();
+            rawDate = rawDate || values[1];
+            if (!relation && values[2]) relation = String(values[2]).trim();
+            if (!gender && values[3]) gender = String(values[3]).trim().toLowerCase();
+            if (rawRating === "" || rawRating === undefined) rawRating = values[4];
+            if (!folderName && values[5]) folderName = String(values[5]).trim();
+            if (!rawEv && values[6]) rawEv = String(values[6]).trim().toLowerCase();
+            if (!notes && values[7]) notes = String(values[7]).trim();
+          }
+
           const date = normalizeDateStr(rawDate);
-          const relation = String(findVal("relation") || findVal("relationship") || "Friend").trim();
-          const rawRating = findVal("specialrating") || findVal("rating") || findVal("score") || 5;
-          const specialRating = Math.min(10, Math.max(1, parseInt(String(rawRating), 10) || 5));
-          const folderName = String(findVal("folder") || findVal("foldername") || "").trim();
-          const eventType = String(findVal("eventtype") || findVal("type") || "birthday").trim().toLowerCase();
-          const notes = String(findVal("notes") || findVal("description") || "").trim();
+          relation = relation || "Friend";
+          gender = gender || "other";
+          const specialRating = Math.min(
+            10,
+            Math.max(1, parseInt(String(rawRating || 5), 10) || 5),
+          );
+
+          let eventType = "birthday";
+          if (
+            rawEv.includes("birth") ||
+            rawEv.includes("bday") ||
+            rawEv.includes("b-day")
+          ) {
+            eventType = "birthday";
+          } else if (rawEv.includes("anniver") || rawEv.includes("wedding")) {
+            eventType = "anniversary";
+          } else if (rawEv.includes("mile")) {
+            eventType = "milestone";
+          } else if (rawEv) {
+            eventType = "other";
+          }
 
           let isValid = true;
           let errorReason = "";
@@ -138,6 +200,7 @@ export function ImportExcelModal({
             name,
             date,
             relation,
+            gender,
             specialRating,
             folderName,
             eventType,
@@ -149,10 +212,14 @@ export function ImportExcelModal({
 
         setParsedRows(rows);
         const validCount = rows.filter((r) => r.isValid).length;
-        toast.success(`Parsed ${rows.length} rows (${validCount} valid date entries found).`);
+        toast.success(
+          `Parsed ${rows.length} rows (${validCount} valid date entries found).`,
+        );
       } catch (err: any) {
         console.error("Excel parse error:", err);
-        toast.error("Failed to parse Excel file. Please ensure it is a valid .xlsx, .xls, or .csv file.");
+        toast.error(
+          "Failed to parse Excel file. Please ensure it is a valid .xlsx, .xls, or .csv file.",
+        );
       }
     };
 
@@ -163,31 +230,34 @@ export function ImportExcelModal({
   const handleDownloadSample = () => {
     const sampleData = [
       {
-        "Name": "Mom",
-        "Date": "1980-05-15",
-        "Relation": "Mother",
+        Name: "Mom",
+        Date: "1980-05-15",
+        Relation: "Mother",
+        Gender: "female",
         "Special Rating": 10,
-        "Folder": "Family",
+        Folder: "Family",
         "Event Type": "birthday",
-        "Notes": "Loves flowers and chocolate cake",
+        Notes: "Loves flowers and chocolate cake",
       },
       {
-        "Name": "John & Sarah",
-        "Date": "2020-10-24",
-        "Relation": "Best Friend",
+        Name: "John & Sarah",
+        Date: "2020-10-24",
+        Relation: "Best Friend",
+        Gender: "other",
         "Special Rating": 9,
-        "Folder": "Close Friends",
+        Folder: "Close Friends",
         "Event Type": "anniversary",
-        "Notes": "10th wedding anniversary",
+        Notes: "10th wedding anniversary",
       },
       {
-        "Name": "Alex Rivera",
-        "Date": "1995-12-04",
-        "Relation": "Colleague",
+        Name: "Alex Rivera",
+        Date: "1995-12-04",
+        Relation: "Colleague",
+        Gender: "male",
         "Special Rating": 7,
-        "Folder": "Work",
+        Folder: "Work",
         "Event Type": "birthday",
-        "Notes": "Office teammate",
+        Notes: "Office teammate",
       },
     ];
 
@@ -220,7 +290,7 @@ export function ImportExcelModal({
       const data = await res.json();
       if (data.success) {
         toast.success(
-          data.message || `Successfully imported ${data.importedCount} dates!`
+          data.message || `Successfully imported ${data.importedCount} dates!`,
         );
         onSuccess();
         onClose();
@@ -249,9 +319,12 @@ export function ImportExcelModal({
               <FileSpreadsheet className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg font-bold">Import Dates from Excel / CSV</h3>
+              <h3 className="text-lg font-bold">
+                Import Dates from Excel / CSV
+              </h3>
               <p className="text-xs text-muted-foreground">
-                Upload your spreadsheet to add multiple close ones' dates in bulk
+                Upload your spreadsheet to add multiple close ones' dates in
+                bulk
               </p>
             </div>
           </div>
@@ -304,7 +377,9 @@ export function ImportExcelModal({
 
             <div>
               <p className="text-sm font-bold">
-                {fileName ? fileName : "Click to select or drag & drop Excel / CSV file"}
+                {fileName
+                  ? fileName
+                  : "Click to select or drag & drop Excel / CSV file"}
               </p>
               <p className="text-xs text-muted-foreground mt-0.5">
                 Supports .xlsx, .xls, and .csv files
@@ -333,7 +408,8 @@ export function ImportExcelModal({
                 Fallback Folder
               </label>
               <p className="text-xs text-muted-foreground">
-                Assigned to dates that do not have a folder specified in the Excel file
+                Assigned to dates that do not have a folder specified in the
+                Excel file
               </p>
             </div>
 
@@ -371,6 +447,7 @@ export function ImportExcelModal({
                       <th className="p-2.5">Name</th>
                       <th className="p-2.5">Date</th>
                       <th className="p-2.5">Relation</th>
+                      <th className="p-2.5">Gender</th>
                       <th className="p-2.5">Rating</th>
                       <th className="p-2.5">Folder</th>
                     </tr>
@@ -379,7 +456,9 @@ export function ImportExcelModal({
                     {parsedRows.map((row, idx) => (
                       <tr
                         key={idx}
-                        className={row.isValid ? "hover:bg-accent/20" : "bg-rose-500/10"}
+                        className={
+                          row.isValid ? "hover:bg-accent/20" : "bg-rose-500/10"
+                        }
                       >
                         <td className="p-2.5 font-bold">
                           {row.isValid ? (
@@ -387,15 +466,22 @@ export function ImportExcelModal({
                               <CheckCircle2 className="w-3.5 h-3.5" /> Valid
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 text-rose-500" title={row.errorReason}>
-                              <AlertCircle className="w-3.5 h-3.5" /> {row.errorReason}
+                            <span
+                              className="inline-flex items-center gap-1 text-rose-500"
+                              title={row.errorReason}
+                            >
+                              <AlertCircle className="w-3.5 h-3.5" />{" "}
+                              {row.errorReason}
                             </span>
                           )}
                         </td>
                         <td className="p-2.5 font-bold">{row.name || "—"}</td>
                         <td className="p-2.5">{row.date || "—"}</td>
                         <td className="p-2.5">{row.relation}</td>
-                        <td className="p-2.5 font-semibold text-amber-500">{row.specialRating}/10</td>
+                        <td className="p-2.5 capitalize">{row.gender}</td>
+                        <td className="p-2.5 font-semibold text-amber-500">
+                          {row.specialRating}/10
+                        </td>
                         <td className="p-2.5 italic">
                           {row.folderName ? `📁 ${row.folderName}` : "—"}
                         </td>
