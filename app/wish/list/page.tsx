@@ -31,6 +31,7 @@ export default async function WishlistPage() {
   return (
     <WishListClient
       initialWishes={userWishes}
+      currentUserName={session.user.name}
       currentUserEmail={session.user.email}
     />
   );

@@ -190,7 +190,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Metrics Cards Grid */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Users */}
         <Card variant="glass" className="p-6 flex items-center gap-5 hoverEffect">
           <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 border border-blue-500/20 flex items-center justify-center shrink-0">
@@ -237,7 +237,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Main Content Area */}
-      <div className="w-full bg-white/40 dark:bg-black/20 backdrop-blur-md border border-border p-6 rounded-3xl shadow-xl flex flex-col gap-6">
+      <div className="w-full max-w-full overflow-hidden bg-white/40 dark:bg-black/20 backdrop-blur-md border border-border p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-xl flex flex-col gap-6">
         {/* Navigation & Controls */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/60 pb-4">
           <div className="flex bg-muted p-1 rounded-xl gap-1 text-sm font-bold">

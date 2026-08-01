@@ -960,6 +960,15 @@ export default function WishCreatePage() {
       const result = await response.json();
 
       if (result.success) {
+        const storedUser = typeof window !== "undefined" ? localStorage.getItem("wishey_user") : null;
+        if (storedUser) {
+          try {
+            const parsed = JSON.parse(storedUser);
+            parsed.tokens = Math.max(0, (parsed.tokens || 1) - 1);
+            localStorage.setItem("wishey_user", JSON.stringify(parsed));
+          } catch {}
+        }
+
         toast.success(
           "Congratulations! Your digital wish card has been created (1 🪙 deducted).",
           { id: toastId },
@@ -1022,7 +1031,7 @@ export default function WishCreatePage() {
           </div>
 
           {/* Occasion Selector Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4">
             {(
               [
                 {
@@ -1063,18 +1072,18 @@ export default function WishCreatePage() {
                   setSelectedCategory(cat.id);
                   setSelectedTemplateIndex(null);
                 }}
-                className={`relative p-6 rounded-2xl border text-center cursor-pointer transition-all duration-300 flex flex-col justify-center items-center gap-2 group hover:shadow-md ${
+                className={`relative p-4 sm:p-6 rounded-2xl border text-center cursor-pointer transition-all duration-300 flex flex-col justify-center items-center gap-2 group hover:shadow-md ${
                   selectedCategory === cat.id
                     ? "border-primary bg-primary/5 ring-2 ring-primary/20 scale-102"
                     : "border-border bg-card"
                 }`}
               >
                 <div
-                  className={`w-12 h-12 rounded-full bg-linear-to-br ${cat.class} flex items-center justify-center text-white text-2xl shadow-sm group-hover:scale-110 transition-transform`}
+                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-linear-to-br ${cat.class} flex items-center justify-center text-white text-xl sm:text-2xl shadow-sm group-hover:scale-110 transition-transform`}
                 >
                   {cat.emoji}
                 </div>
-                <h4 className="font-bold text-sm mt-1">{cat.name}</h4>
+                <h4 className="font-bold text-xs sm:text-sm mt-1">{cat.name}</h4>
               </div>
             ))}
           </div>
@@ -1084,7 +1093,7 @@ export default function WishCreatePage() {
             <h3 className="font-bold text-lg text-muted-foreground">
               Available Templates for {selectedCategory.toUpperCase()}
             </h3>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
               {TEMPLATES_RECORD[selectedCategory].map((tmpl, idx) => (
                 <Card
                   key={idx}

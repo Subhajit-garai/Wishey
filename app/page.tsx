@@ -87,28 +87,28 @@ export default function Home() {
       {/* Right Column: Live Card Showcase */}
       <div className="flex-1 flex flex-col justify-center items-center">
         <div className="w-full max-w-lg bg-white/40 dark:bg-black/20 backdrop-blur-md border border-border p-6 rounded-3xl shadow-xl flex flex-col gap-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <h2 className="text-xl font-bold flex items-center gap-2">
               <Stars className="w-6 h-6 text-accent animate-pulse" />
               Live Previews
             </h2>
             {/* Tab Toggles */}
-            <div className="flex bg-muted p-1 rounded-xl gap-1 text-xs font-semibold">
+            <div className="flex bg-muted p-1 rounded-xl gap-1 text-xs font-semibold overflow-x-auto max-w-full">
               <button
                 onClick={() => setActiveTab("birthday")}
-                className={`px-3 py-1.5 rounded-lg transition-all ${activeTab === "birthday" ? "bg-card text-foreground shadow-xs" : "text-muted-foreground hover:text-foreground"}`}
+                className={`px-3 py-1.5 rounded-lg transition-all shrink-0 cursor-pointer ${activeTab === "birthday" ? "bg-card text-foreground shadow-xs font-bold" : "text-muted-foreground hover:text-foreground"}`}
               >
                 Birthday
               </button>
               <button
                 onClick={() => setActiveTab("anniversary")}
-                className={`px-3 py-1.5 rounded-lg transition-all ${activeTab === "anniversary" ? "bg-card text-foreground shadow-xs" : "text-muted-foreground hover:text-foreground"}`}
+                className={`px-3 py-1.5 rounded-lg transition-all shrink-0 cursor-pointer ${activeTab === "anniversary" ? "bg-card text-foreground shadow-xs font-bold" : "text-muted-foreground hover:text-foreground"}`}
               >
                 Anniversary
               </button>
               <button
                 onClick={() => setActiveTab("interactive")}
-                className={`px-3 py-1.5 rounded-lg transition-all ${activeTab === "interactive" ? "bg-card text-foreground shadow-xs" : "text-muted-foreground hover:text-foreground"}`}
+                className={`px-3 py-1.5 rounded-lg transition-all shrink-0 cursor-pointer ${activeTab === "interactive" ? "bg-card text-foreground shadow-xs font-bold" : "text-muted-foreground hover:text-foreground"}`}
               >
                 Interactive
               </button>

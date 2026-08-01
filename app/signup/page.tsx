@@ -67,9 +67,9 @@ export default function Signup() {
   return (
     <>
       <div className="flex justify-center items-center min-h-[85vh] w-full p-4">
-        <Card className="inputCont w-fit flex-col p-8 rounded-lg">
-          <div className="gap-2 flex-col flex">
-            <h2 className="text-center font-bold capitalize  text-primary ">
+        <Card className="inputCont w-full max-w-md flex-col p-6 sm:p-8 rounded-2xl shadow-xl border border-border/60">
+          <div className="gap-3 flex-col flex">
+            <h2 className="text-center font-extrabold text-2xl capitalize text-primary">
               Sign up now
             </h2>
             <Textinput
@@ -78,14 +78,13 @@ export default function Signup() {
               value={value}
             />
             <Link href={"/login"}>
-              <p className=" underline font-bold text-sm text-muted-foreground text-center hover:text-blue-500">
-                or log in
+              <p className="underline font-bold text-sm text-muted-foreground text-center hover:text-primary transition-colors">
+                or log in to existing account
               </p>
             </Link>
-            {/* <Link><p className=" underline font-bold text-sm text-muted-foreground">forgot password</p></Link> */}
           </div>
-          <div className="btc mt-4 w-full flex justify-center">
-            <Button color="blue" onClick={signupfn}>
+          <div className="btc mt-6 w-full flex justify-center">
+            <Button className="w-full font-bold shadow-md" onClick={signupfn}>
               Sign up
             </Button>
           </div>

@@ -24,10 +24,11 @@ import {
 
 interface WishListClientProps {
   initialWishes: Wish[];
+  currentUserName?: string;
   currentUserEmail?: string;
 }
 
-export function WishListClient({ initialWishes, currentUserEmail }: WishListClientProps) {
+export function WishListClient({ initialWishes, currentUserName, currentUserEmail }: WishListClientProps) {
   const router = useRouter();
   const [wishes, setWishes] = useState<Wish[]>(initialWishes);
 
@@ -78,10 +79,12 @@ export function WishListClient({ initialWishes, currentUserEmail }: WishListClie
     }
   };
 
+  const displayName = currentUserName || currentUserEmail;
+
   return (
     <div className="w-full min-h-[calc(100vh-5rem)] p-4 md:p-10 max-w-7xl mx-auto flex flex-col gap-8">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-6">
         <div className="space-y-1">
           <div className="flex items-center gap-2 text-muted-foreground text-sm font-semibold">
             <Link
@@ -91,25 +94,26 @@ export function WishListClient({ initialWishes, currentUserEmail }: WishListClie
               <ArrowLeft className="w-4 h-4" /> Back to Home
             </Link>
           </div>
-          <h1 className="text-3xl font-black tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight mt-1">
             My Created <span className="text-brand-gradient">Wishes</span>
           </h1>
-          <p className="text-muted-foreground text-sm">
-            {currentUserEmail ? (
-              <>Showing created wish cards for <strong>{currentUserEmail}</strong>.</>
+          <p className="text-muted-foreground text-xs sm:text-sm">
+            {displayName ? (
+              <>Showing created wish cards for <strong>{displayName}</strong>.</>
             ) : (
               <>Showing all active digital wish cards.</>
             )}
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto">
           <EarnTokenModal userEmail={currentUserEmail} />
           <Button
             onClick={() => router.push("/wish/create")}
             className="w-full sm:w-auto flex items-center justify-center gap-2 bg-brand-gradient hover:opacity-90 text-white font-semibold shadow-brand border-0 cursor-pointer"
           >
-            <Plus className="w-5 h-5" /> Create a Wish (1 🪙)
+            <Plus className="w-5 h-5 shrink-0" />
+            <span>Create a Wish (1 🪙)</span>
           </Button>
         </div>
       </div>
@@ -129,7 +133,7 @@ export function WishListClient({ initialWishes, currentUserEmail }: WishListClie
           </Button>
         </div>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {wishes.map((wish, index) => {
             const isWishActive = wish.isActive !== false;
             const variants: ("glass" | "gradient" | "neon" | "default")[] = [

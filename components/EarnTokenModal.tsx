@@ -46,15 +46,13 @@ export const EarnTokenModal = ({
       });
     }, 800);
 
-    setTimeout(async () => {
+    const timer = setTimeout(async () => {
+      clearInterval(interval);
       try {
-        const storedUser = localStorage.getItem("wishey_user");
-        const email = userEmail || (storedUser ? JSON.parse(storedUser).email : null);
-
         const res = await fetch("/api/user/token", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, amount: 1 }),
+          body: JSON.stringify({ amount: 1 }),
         });
 
         const data = await res.json();
@@ -62,16 +60,20 @@ export const EarnTokenModal = ({
           setEarned(true);
           toast.success(data.message || "Earned +1 Wish Creation Token!");
 
-          // Update local stored user token count if applicable
+          const storedUser = typeof window !== "undefined" ? localStorage.getItem("wishey_user") : null;
           if (storedUser) {
-            const parsed = JSON.parse(storedUser);
-            parsed.tokens = (parsed.tokens || 0) + 1;
-            localStorage.setItem("wishey_user", JSON.stringify(parsed));
+            try {
+              const parsed = JSON.parse(storedUser);
+              parsed.tokens = data.data?.tokens ?? (parsed.tokens || 0) + 1;
+              localStorage.setItem("wishey_user", JSON.stringify(parsed));
+            } catch {}
           }
 
           if (onTokenEarned) {
             onTokenEarned(data.data?.tokens || 1);
           }
+        } else {
+          toast.error(data.message || "Failed to credit token.");
         }
       } catch (err) {
         console.error(err);
@@ -80,6 +82,11 @@ export const EarnTokenModal = ({
         setIsWatching(false);
       }
     }, 4500);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timer);
+    };
   };
 
   return (
@@ -88,7 +95,7 @@ export const EarnTokenModal = ({
         <Button
           onClick={() => setIsOpen(true)}
           variant="outline"
-          className="gap-2 border-amber-500/40 text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 cursor-pointer font-bold"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 border-amber-500/40 text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 cursor-pointer font-bold"
         >
           <Coins className="w-4 h-4 text-amber-500 animate-pulse" />
           {triggerText}
