@@ -62,7 +62,7 @@ export async function GET(
   }
 }
 
-// PATCH /api/wish/[id] - Toggle isActive status (Requires wish owner or admin)
+// PATCH /api/wish/[id] - Update wish details or toggle isActive status (Requires wish owner or admin)
 export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -78,11 +78,10 @@ export async function PATCH(
 
     const { id } = await params;
     const body = await request.json();
-    const { isActive } = body;
 
-    if (!id || typeof isActive !== "boolean") {
+    if (!id) {
       return NextResponse.json(
-        { success: false, message: "Invalid parameters (id or isActive)" },
+        { success: false, message: "Missing wish ID" },
         { status: 400 }
       );
     }
@@ -107,19 +106,77 @@ export async function PATCH(
       );
     }
 
-    await db.update(wishes).set({ isActive }).where(eq(wishes.id, id));
+    // If request contains only isActive (status toggle operation)
+    if (typeof body.isActive === "boolean" && Object.keys(body).length === 1) {
+      await db.update(wishes).set({ isActive: body.isActive }).where(eq(wishes.id, id));
+
+      return NextResponse.json({
+        success: true,
+        message: `Wish status updated to ${body.isActive ? "Active" : "Inactive"}.`,
+        data: { id, isActive: body.isActive },
+      });
+    }
+
+    // Otherwise, perform partial/full wish update
+    const updateData: Record<string, any> = {
+      updatedAt: new Date().toISOString().split("T")[0],
+    };
+
+    const allowedFields = [
+      "title",
+      "subtitle",
+      "description",
+      "recipient",
+      "sender",
+      "messages",
+      "quote",
+      "poem",
+      "coverImage",
+      "profileImage",
+      "gallery",
+      "video",
+      "voiceMessage",
+      "music",
+      "theme",
+      "colors",
+      "font",
+      "animation",
+      "memories",
+      "timeline",
+      "gifts",
+      "countdown",
+      "isPublic",
+      "isActive",
+      "allowComments",
+      "allowReactions",
+      "tags",
+      "publishAt",
+      "occasion",
+      "templateId",
+      "slug",
+    ];
+
+    for (const field of allowedFields) {
+      if (body[field] !== undefined) {
+        updateData[field] = body[field];
+      }
+    }
+
+    await db.update(wishes).set(updateData).where(eq(wishes.id, id));
+
+    const updated = await db.select().from(wishes).where(eq(wishes.id, id)).limit(1);
 
     return NextResponse.json({
       success: true,
-      message: `Wish status updated to ${isActive ? "Active" : "Inactive"}.`,
-      data: { id, isActive },
+      message: "Wish updated successfully.",
+      data: updated[0],
     });
   } catch (error) {
     console.error("PATCH /api/wish/[id] error:", error);
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to update wish status",
+        message: "Failed to update wish",
         error: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }

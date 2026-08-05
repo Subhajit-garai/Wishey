@@ -6,7 +6,7 @@ import { type Wish } from "../types";
 import { WishTemplateRenderer } from "@/designs/wishtemplates";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Home, Share2 } from "lucide-react";
+import { ArrowLeft, Home, Share2, Pencil } from "lucide-react";
 
 // Predefined fallback mock database matching the created templateIds
 const FALLBACK_WISHES: Record<string, Wish> = {
@@ -185,6 +185,15 @@ export default function WishSharedPage() {
           className="text-neutral-300 hover:text-white flex items-center gap-1 text-xs"
         >
           <ArrowLeft className="w-4 h-4" /> Back
+        </Button>
+        <div className="w-px h-4 bg-neutral-700" />
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => router.push(`/wish/${id}/edit`)}
+          className="text-neutral-300 hover:text-white flex items-center gap-1 text-xs"
+        >
+          <Pencil className="w-3.5 h-3.5 text-primary" /> Edit
         </Button>
         <div className="w-px h-4 bg-neutral-700" />
         <Button
