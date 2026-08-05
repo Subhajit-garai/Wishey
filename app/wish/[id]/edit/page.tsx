@@ -145,6 +145,7 @@ export default function WishEditPage() {
 
       if (result.success) {
         toast.success("Wish card updated successfully!", { id: toastId });
+        router.refresh();
         router.push("/wish/list");
       } else {
         toast.error(result.message || "Failed to update wish in database.", {

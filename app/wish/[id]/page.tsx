@@ -94,7 +94,7 @@ export default function WishSharedPage() {
 
     async function loadWish() {
       try {
-        const response = await fetch(`/api/wish/${id}`);
+        const response = await fetch(`/api/wish/${id}`, { cache: "no-store" });
         const result = await response.json();
         
         if (result.success && result.data) {

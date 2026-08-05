@@ -4,6 +4,9 @@ import { wishes } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { verifySession } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 // GET /api/wish/[id] - Fetch a single wish by ID (Public if active, Owner/Admin if inactive)
 export async function GET(
   request: Request,

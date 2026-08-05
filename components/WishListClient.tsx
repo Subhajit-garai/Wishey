@@ -240,7 +240,7 @@ export function WishListClient({ initialWishes, currentUserName, currentUserEmai
                 key={wish.id}
                 variant={cardVariant}
                 glowColor={cardVariant === "neon" ? "var(--primary)" : "var(--accent)"}
-                className={`flex flex-col justify-between h-[390px] relative transition-all ${
+                className={`flex flex-col justify-between h-[360px] relative transition-all ${
                   !isWishActive ? "opacity-60 grayscale-[30%]" : ""
                 }`}
               >
@@ -328,37 +328,16 @@ export function WishListClient({ initialWishes, currentUserName, currentUserEmai
                     </div>
                   )}
 
-                  {/* Card Action Buttons Row */}
-                  <div className="flex items-center gap-2 pt-1" onClick={(e) => e.stopPropagation()}>
-                    <Button
-                      onClick={() => router.push(`/wish/${wish.id}/edit`)}
-                      variant="outline"
-                      size="sm"
-                      className="flex-1 flex items-center justify-center gap-1 text-xs font-bold cursor-pointer"
-                    >
-                      <Pencil className="w-3.5 h-3.5 text-primary" />
-                      <span>Edit</span>
-                    </Button>
-
-                    <Button
-                      onClick={(e) => handleOpenCopyModal(e, wish)}
-                      variant="outline"
-                      size="sm"
-                      className="flex-1 flex items-center justify-center gap-1 text-xs font-bold cursor-pointer"
-                    >
-                      <Copy className="w-3.5 h-3.5 text-sky-500" />
-                      <span>Copy</span>
-                    </Button>
-
-                    <Button
-                      onClick={() => router.push(`/wish/${wish.id}`)}
-                      size="sm"
-                      className="flex-1 flex items-center justify-center gap-1 text-xs font-bold cursor-pointer bg-primary text-white hover:bg-primary/90"
-                    >
-                      <span>View</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </Button>
-                  </div>
+                  {/* Card View Link Button */}
+                  <Button
+                    onClick={() => router.push(`/wish/${wish.id}`)}
+                    variant="outline"
+                    size="sm"
+                    className="w-full mt-3 flex items-center justify-center gap-1.5 cursor-pointer font-bold"
+                  >
+                    <span>View Wish Card</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </Button>
                 </div>
               </Card>
             );

@@ -4,6 +4,9 @@ import { wishes, users } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
 import { verifySession, generateSecureId } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 // GET /api/wish - List authenticated user's created wishes only
 export async function GET(request: Request) {
   try {
