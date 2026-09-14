@@ -147,7 +147,7 @@ export const Header = ({
           </NavLink>
           <NavLink href={"/dates"}>
             <Button variant="ghost" className="font-semibold hover:bg-accent">
-              Close Ones Dates
+              Dates
             </Button>
           </NavLink>
           <NavLink href={"/wish/create"}>
@@ -177,7 +177,7 @@ export const Header = ({
             userEmail={currentUser?.email}
             onTokenEarned={(newCount) => {
               setCurrentUser((prev) =>
-                prev ? { ...prev, tokens: newCount } : prev
+                prev ? { ...prev, tokens: newCount } : prev,
               );
             }}
           />
@@ -249,7 +249,9 @@ export const Header = ({
                 </div>
                 <div className="flex flex-col">
                   <span className="text-sm font-bold">{currentUser.name}</span>
-                  <span className="text-xs text-muted-foreground">{currentUser.email}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {currentUser.email}
+                  </span>
                 </div>
               </div>
               <div className="flex items-center gap-1 bg-amber-500/10 border border-amber-500/30 px-2.5 py-1 rounded-full text-xs font-bold text-amber-600 dark:text-amber-400">
@@ -259,13 +261,19 @@ export const Header = ({
             </div>
           ) : (
             <div className="pb-4 border-b border-border/40 flex flex-col gap-2">
-              <p className="text-xs text-muted-foreground font-semibold">Welcome to Wishey</p>
+              <p className="text-xs text-muted-foreground font-semibold">
+                Welcome to Wishey
+              </p>
               <div className="grid grid-cols-2 gap-2">
                 <NavLink href={"/login"} className="w-full">
-                  <Button className="w-full" size="sm">Login</Button>
+                  <Button className="w-full" size="sm">
+                    Login
+                  </Button>
                 </NavLink>
                 <NavLink href={"/signup"} className="w-full">
-                  <Button variant="outline" className="w-full" size="sm">Sign up</Button>
+                  <Button variant="outline" className="w-full" size="sm">
+                    Sign up
+                  </Button>
                 </NavLink>
               </div>
             </div>
@@ -276,7 +284,9 @@ export const Header = ({
             <NavLink
               href="/"
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-                pathname === "/" ? "bg-primary/10 text-primary" : "hover:bg-accent"
+                pathname === "/"
+                  ? "bg-primary/10 text-primary"
+                  : "hover:bg-accent"
               }`}
             >
               <Home className="w-4 h-4" /> Home
@@ -285,7 +295,9 @@ export const Header = ({
             <NavLink
               href="/wish/list"
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-                pathname === "/wish/list" ? "bg-primary/10 text-primary" : "hover:bg-accent"
+                pathname === "/wish/list"
+                  ? "bg-primary/10 text-primary"
+                  : "hover:bg-accent"
               }`}
             >
               <Gift className="w-4 h-4" /> My Wishes
@@ -294,7 +306,9 @@ export const Header = ({
             <NavLink
               href="/dates"
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-                pathname === "/dates" ? "bg-primary/10 text-primary" : "hover:bg-accent"
+                pathname === "/dates"
+                  ? "bg-primary/10 text-primary"
+                  : "hover:bg-accent"
               }`}
             >
               <Calendar className="w-4 h-4" /> Close Ones Dates
@@ -303,7 +317,9 @@ export const Header = ({
             <NavLink
               href="/wish/create"
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-                pathname === "/wish/create" ? "bg-primary/10 text-primary" : "hover:bg-accent"
+                pathname === "/wish/create"
+                  ? "bg-primary/10 text-primary"
+                  : "hover:bg-accent"
               }`}
             >
               <Plus className="w-4 h-4" /> Create a Wish Card
@@ -313,7 +329,9 @@ export const Header = ({
               <NavLink
                 href="/admin"
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors text-red-600 dark:text-red-400 ${
-                  pathname === "/admin" ? "bg-red-500/10" : "hover:bg-red-500/10"
+                  pathname === "/admin"
+                    ? "bg-red-500/10"
+                    : "hover:bg-red-500/10"
                 }`}
               >
                 <ShieldAlert className="w-4 h-4" /> Admin Panel
@@ -327,7 +345,7 @@ export const Header = ({
               userEmail={currentUser?.email}
               onTokenEarned={(newCount) => {
                 setCurrentUser((prev) =>
-                  prev ? { ...prev, tokens: newCount } : prev
+                  prev ? { ...prev, tokens: newCount } : prev,
                 );
               }}
             />
